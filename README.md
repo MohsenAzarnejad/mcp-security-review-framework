@@ -966,7 +966,7 @@ flowchart LR
 
 The defining MCP risk: an attacker who can influence *any* data the agent reads can drive *any* action the agent can take.
 
-### 17.3 Hardened reference architecture (recommended)
+### 11.3 Hardened reference architecture (recommended)
 
 ```mermaid
 flowchart LR
@@ -1032,7 +1032,7 @@ Use only after the full checklist is done; for first-pass triage of obvious bloc
 
 ---
 
-## 14. 🛑 Appendix D — Glossary of Common Anti-Patterns
+## 14. 🛑 Appendix B — Glossary of Common Anti-Patterns
 
 | Name | Pattern | Why it's dangerous |
 |---|---|---|
