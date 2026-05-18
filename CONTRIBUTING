@@ -1,0 +1,24 @@
+# Contributing
+
+Thanks for considering a contribution. This methodology is meant to be a living document — MCP is young, the attack surface is evolving, and field experience is the only way it improves.
+
+## Good contributions
+
+- **New controls** (with severity, risk, validation method, remediation) — keep the existing control-block format.
+- **Refined examples** — real-world findings, anti-patterns, or worked audits make the doc more useful.
+- **Tooling pointers** — open-source scanners or scripts that automate one or more controls.
+- **Fixes** — typos, broken links, factual corrections, clearer wording.
+
+## Control ID stability
+
+Existing control IDs (`MCP-<DOMAIN>-<NNN>`) are **stable**. If you reorder, do not renumber — many real audits reference these IDs. Add new controls at the end of their domain.
+
+## Issue and PR style
+
+- Small, focused PRs.
+- For new controls, state the threat scenario in the PR description.
+- For status / workflow changes, explain the operational impact.
+
+## Code of Conduct
+
+Be respectful. Disagree on technical merits, not on people.
