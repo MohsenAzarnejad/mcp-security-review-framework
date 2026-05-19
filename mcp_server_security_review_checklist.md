@@ -114,6 +114,9 @@ Always enforce security in deterministic server-side logic.
 - Identify deployment model and transport.
 
 ## Step 2: Data Flow
+
+What systems does it connect to? What credentials does it use? What can it read/write?
+
 Draw a simple flow:
 
 ```text
