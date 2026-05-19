@@ -11,8 +11,8 @@
 
 1. [How to Use This Checklist](#1-how-to-use-this-checklist)
 2. [Severity Definitions](#2-severity-definitions)
-3. [Review Summary Template](#4-review-summary-template)
-4. [Reviewer Mindset](#3-reviewer-mindset)
+3. [Review Summary Template](#3-review-summary-template)
+4. [Reviewer Mindset](#4-reviewer-mindset)
 5. [MCP Server Review Workflow](#5-mcp-server-review-workflow)
 7. [Severity-Sorted Control Index](#6-severity-sorted-control-index)
 8. [Reviewer Scoring](#7-reviewer-scoring)
