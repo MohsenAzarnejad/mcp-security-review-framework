@@ -9,18 +9,18 @@
 
 # Table of Contents
 
-1. [How to Use This Checklist](#0-how-to-use-this-checklist)
-2. [Severity Definitions](#1-severity-definitions)
+1. [How to Use This Checklist](#1-how-to-use-this-checklist)
+2. [Severity Definitions](#2-severity-definitions)
 3. [Reviewer Mindset](#3-reviewer-mindset)
-4. [Review Summary Template](#2-review-summary-template)
-5. [MCP Server Review Workflow](#4-mcp-server-review-workflow)
-6. [Severity-Sorted Control Index](#5-severity-sorted-control-index)
-7. [Reviewer Scoring](#6-reviewer-scoring)
-8. [Critical Controls](#7-critical-controls)
-9. [High-Severity Controls](#8-high-severity-controls)
-10. [Medium-Severity Controls](#9-medium-severity-controls)
-11. [Low-Severity Controls](#10-low-severity-controls)
-12. [References](#11-references)
+4. [Review Summary Template](#4-review-summary-template)
+5. [MCP Server Review Workflow](#5-mcp-server-review-workflow)
+6. [Severity-Sorted Control Index](#6-severity-sorted-control-index)
+7. [Reviewer Scoring](#7-reviewer-scoring)
+8. [Critical Controls](#6-critical-controls)
+9. [High-Severity Controls](#7-high-severity-controls)
+10. [Medium-Severity Controls](#8-medium-severity-controls)
+11. [Low-Severity Controls](#9-low-severity-controls)
+12. [References](#10-references)
 
 ---
 
