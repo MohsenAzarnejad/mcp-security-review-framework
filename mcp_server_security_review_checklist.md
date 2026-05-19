@@ -16,11 +16,11 @@
 5. [MCP Server Review Workflow](#5-mcp-server-review-workflow)
 6. [Severity-Sorted Control Index](#6-severity-sorted-control-index)
 7. [Reviewer Scoring](#7-reviewer-scoring)
-8. [Critical Controls](#6-critical-controls)
-9. [High-Severity Controls](#7-high-severity-controls)
-10. [Medium-Severity Controls](#8-medium-severity-controls)
-11. [Low-Severity Controls](#9-low-severity-controls)
-12. [References](#10-references)
+8. [Critical Controls](#8-critical-controls)
+9. [High-Severity Controls](#9-high-severity-controls)
+10. [Medium-Severity Controls](#10-medium-severity-controls)
+11. [Low-Severity Controls](#11-low-severity-controls)
+12. [References](#12-references)
 
 ---
 
@@ -165,7 +165,7 @@ Test:
 
 ---
 
-# 5. Severity-Sorted Control Index
+# 6. Severity-Sorted Control Index
 
 ## Critical
 | ID | Control |
@@ -212,7 +212,7 @@ Test:
 
 ---
 
-# 6. Reviewer Scoring
+# 7. Reviewer Scoring
 
 | Result | Meaning |
 |---|---|
@@ -224,7 +224,7 @@ Test:
 
 ---
 
-# 6. Critical Controls
+# 8. Critical Controls
 
 ## CR-01: Enforce Server-Side Authorization for Every Tool Call
 
@@ -449,7 +449,7 @@ Tools that fetch URLs or connect to arbitrary hosts must enforce strict destinat
 
 ---
 
-# 7. High-Severity Controls
+# 9. High-Severity Controls
 
 ## HI-01: Inventory All Tools, Resources, and Prompts
 
@@ -778,7 +778,7 @@ Log security-relevant MCP activity, especially tool invocation, user identity, t
 
 ---
 
-# 8. Medium-Severity Controls
+# 10. Medium-Severity Controls
 
 ## ME-01: Disable Unused Tools, Resources, and Prompts
 
@@ -944,7 +944,7 @@ The repository should include security tests for prompt injection, authorization
 
 ---
 
-# 9. Low-Severity Controls
+# 11. Low-Severity Controls
 
 ## LO-01: Document the Server Threat Model
 
@@ -996,7 +996,7 @@ Keep a record of approval decision, accepted risks, compensating controls, and r
 
 ---
 
-# 10. References
+# 12. References
 
 The checklist is based on the following public guidance:
 
