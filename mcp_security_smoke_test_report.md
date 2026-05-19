@@ -1,7 +1,7 @@
 # MCP Security Smoke Test Report
 
-Generated: `2026-05-19T21:34:44Z`  
-Tool version: `1.0.0`
+Generated: `2026-05-19T21:39:49Z`  
+Tool version: `1.1.0`
 
 ## Summary
 
@@ -16,7 +16,7 @@ Tool version: `1.0.0`
 
 ```json
 {
-  "started_at": "2026-05-19T21:34:44Z",
+  "started_at": "2026-05-19T21:39:49Z",
   "static_scan": {
     "dependency_files": [
       "package.json",
@@ -25,7 +25,7 @@ Tool version: `1.0.0`
     "files_scanned": 13,
     "repo": "C:\\Users\\MohsenAzarnejad\\Desktop\\script test\\dovetail-mcp-main"
   },
-  "version": "1.0.0"
+  "version": "1.1.0"
 }
 ```
 
@@ -41,6 +41,15 @@ Tool version: `1.0.0`
 | `list_project_data` | - | List data for a specific project |
 | `get_dovetail_projects` | all | Get all Dovetail projects |
 | `list_personal_project_insights` | - | List insights for a specific user |
+
+## Control Summary Table
+
+| Control | Status | Highest Severity | Findings |
+|---|---|---|---:|
+| `CR-03` | WARN | High | 1 |
+| `CR-06` | WARN | Critical | 1 |
+| `HI-02` | WARN | High | 8 |
+| `HI-09` | WARN | High | 1 |
 
 ## Findings
 
