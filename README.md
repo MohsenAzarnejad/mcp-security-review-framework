@@ -43,7 +43,9 @@ MCP Server
 External Systems (Grafana, GitHub, databases, SaaS APIs)
 ```
 The **host** is the AI application the user interacts with.
+
 The **MCP server** exposes capabilities like tools, resources, and prompts.
+
 The host communicates with the server over a transport protocol.
 The transport matters for security because it determines:
 - who can connect,
@@ -54,6 +56,7 @@ The transport matters for security because it determines:
 
 
 **stdio transport**
+
 `stdio` means the host launches the MCP server as a local process and communicates using standard input/output streams. This is very common for desktop/local integrations.
 Security characteristics
 
@@ -75,6 +78,7 @@ Typical review questions:
 - Does it run as the logged-in user?
 
 **HTTP/SSE transport**
+
 Some MCP servers run remotely over HTTP. Often HTTP POST is used for requests, and SSE (Server-Sent Events) is used for streaming responses.
 
 ```
@@ -100,6 +104,7 @@ Typical review questions:
 - Is origin validation implemented?
 
 **Streamable HTTP**
+
 This is a newer pattern where bidirectional streaming occurs over HTTP connections.
 
 The idea is:
@@ -122,9 +127,11 @@ Typical review questions:
 
 
 ## Tools vs Resources vs Prompts
+
 This distinction is extremely important for security review.
 
 **Tools**
+
 Tools perform actions. Examples:
 - query_grafana_logs
 - create_ticket
@@ -147,6 +154,7 @@ Security review focus:
 - Injection risks
 
 **Resources**
+
 Resources provide data/context. Examples:
 - log files,
 - dashboard metadata,
@@ -164,8 +172,8 @@ Security review focus:
 - Access control
 - Output sanitization
 
-
 **Prompts**
+
 Prompts are reusable instruction templates. Examples:
 - “Summarize this incident”
 - “Generate a postmortem”
