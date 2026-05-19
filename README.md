@@ -36,6 +36,30 @@ A complete, copy-pasteable methodology for auditing MCP servers in an enterprise
 4. Document findings using [§11 — Page Template](#-11-confluence-page-template).
 5. Decide using [§8 — Status Model](#-8-status-model--lifecycle) + [§9 — Risk Scoring](#-9-risk-scoring-methodology).
 
+## MCP Architecture and Transports
+At a high level, MCP (Model Context Protocol) is a standardized way for an LLM application to communicate with external tools and data sources.
+Think of it like this:
+```bash
+User
+  ↓
+AI Host (Claude Desktop / Cursor / internal agent)
+  ↓
+MCP Client
+  ↓
+MCP Server
+  ↓
+External Systems (Grafana, GitHub, databases, SaaS APIs)
+```
+The **host** is the AI application the user interacts with.
+The **MCP server** exposes capabilities like tools, resources, and prompts.
+The host communicates with the server over a transport protocol.
+The transport matters for security because it determines:
+- who can connect,
+- how authentication works,
+- exposure to remote attacks,
+- network boundaries,
+- logging and monitoring possibilities.
+
 ## 💡 The one principle to internalize
 
 > **An MCP server does not create new access — it amplifies existing access by making it callable via an LLM.**
