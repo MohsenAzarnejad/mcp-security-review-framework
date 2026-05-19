@@ -11,16 +11,16 @@
 
 1. [How to Use This Checklist](#1-how-to-use-this-checklist)
 2. [Severity Definitions](#2-severity-definitions)
-3. [Reviewer Mindset](#3-reviewer-mindset)
-4. [Review Summary Template](#4-review-summary-template)
+3. [Review Summary Template](#4-review-summary-template)
+4. [Reviewer Mindset](#3-reviewer-mindset)
 5. [MCP Server Review Workflow](#5-mcp-server-review-workflow)
-6. [Severity-Sorted Control Index](#6-severity-sorted-control-index)
-7. [Reviewer Scoring](#7-reviewer-scoring)
-8. [Critical Controls](#8-critical-controls)
-9. [High-Severity Controls](#9-high-severity-controls)
-10. [Medium-Severity Controls](#10-medium-severity-controls)
-11. [Low-Severity Controls](#11-low-severity-controls)
-12. [References](#12-references)
+7. [Severity-Sorted Control Index](#6-severity-sorted-control-index)
+8. [Reviewer Scoring](#7-reviewer-scoring)
+9. [Critical-Severity Controls](#8-critical-severity-controls)
+10. [High-Severity Controls](#9-high-severity-controls)
+11. [Medium-Severity Controls](#10-medium-severity-controls)
+12. [Low-Severity Controls](#11-low-severity-controls)
+13. [References](#12-references)
 
 ---
 
@@ -224,7 +224,7 @@ Test:
 
 ---
 
-# 8. Critical Controls
+# 8. Critical-Severity Controls
 
 ## CR-01: Enforce Server-Side Authorization for Every Tool Call
 
