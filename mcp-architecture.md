@@ -1,16 +1,8 @@
-# MCP Security Foundations
+# MCP Architecture
 
-## Introduction
+# 1. High Level View
 
-Model Context Protocol (MCP) is a standardized way for AI applications to communicate with external tools, APIs, and data sources. From a security perspective, MCP changes the traditional threat model because an LLM can autonomously decide to invoke tools using powerful credentials.
-
-This document introduces the foundational concepts required to perform a security review of MCP servers.
-
----
-
-# 1. MCP Architecture and Transports
-
-At a high level, MCP architecture usually looks like this:
+MCP follows a client-server architecture where an MCP host establishes connections to one or more MCP servers. The MCP host accomplishes this by creating one MCP client for each MCP server. Each MCP client maintains a dedicated connection with its corresponding MCP server. So at a high level, MCP architecture usually looks like this:
 
 ```text
 User
@@ -25,8 +17,15 @@ External Systems (Grafana, GitHub, Databases, SaaS APIs)
 ```
 
 The **host** is the AI application the user interacts with.  
-The **MCP server** exposes capabilities such as tools, resources, and prompts.  
+The **MCP server** exposes capabilities such as tools, resources, and prompts. MCP servers can execute locally or remotely.
 The host communicates with the MCP server using one of several transport mechanisms.
+
+Local MCP servers that use the STDIO transport typically serve a single MCP client, whereas remote MCP servers that use the Streamable HTTP transport will typically serve many MCP clients.
+
+<img src="./images/mcp-clients-servers.png" width="800">
+
+
+## Transport Layer
 
 The transport layer matters for security because it determines:
 
@@ -38,7 +37,7 @@ The transport layer matters for security because it determines:
 
 ---
 
-## stdio Transport
+### stdio Transport
 
 `stdio` transport means the host launches the MCP server as a local process and communicates using standard input and standard output streams.
 
@@ -52,20 +51,20 @@ Local MCP Process
 
 This model is common for local desktop integrations.
 
-### Security Characteristics
+#### Security Characteristics
 
-### Advantages
+#### Advantages
 - No external network exposure
 - Simpler deployment model
 - Easier local isolation
 
-### Risks
+#### Risks
 - The MCP server often runs with the user's local permissions
 - Environment variables may expose secrets
 - File system access may be unrestricted
 - Dangerous if the server can execute shell commands
 
-### Review Questions
+#### Review Questions
 - Does the process inherit sensitive environment variables?
 - Can it access unrestricted filesystem paths?
 - Can it spawn subprocesses?
@@ -73,7 +72,7 @@ This model is common for local desktop integrations.
 
 ---
 
-## HTTP/SSE Transport
+### HTTP/SSE Transport
 
 Some MCP servers operate remotely over HTTP.
 
@@ -87,20 +86,20 @@ Example:
 Host → HTTPS → Remote MCP Server
 ```
 
-### Security Characteristics
+#### Security Characteristics
 
-### Advantages
+#### Advantages
 - Centralized deployment
 - Easier monitoring and auditing
 - Better access control possibilities
 
-### Risks
+#### Risks
 - Network-exposed attack surface
 - Authentication becomes critical
 - Potential SSRF and API abuse risks
 - TLS and session handling become important
 
-### Review Questions
+#### Review Questions
 - Is TLS enforced?
 - Are API tokens scoped minimally?
 - Is authentication mandatory?
@@ -109,7 +108,7 @@ Host → HTTPS → Remote MCP Server
 
 ---
 
-## Streamable HTTP
+### Streamable HTTP
 
 Streamable HTTP enables long-lived bidirectional communication over HTTP connections.
 
@@ -118,15 +117,15 @@ Advantages include:
 - Real-time streaming
 - Continuous interactions
 
-### Security Characteristics
+#### Security Characteristics
 
-### Risks
+#### Risks
 - Long-lived sessions
 - Resource exhaustion risks
 - More complex session handling
 - Harder logging and auditing
 
-### Review Questions
+#### Review Questions
 - Are idle sessions terminated?
 - Can attackers hold connections open indefinitely?
 - Is stream data authenticated?
@@ -354,23 +353,5 @@ The model considers:
 - Previous tool outputs
 
 Then it predicts **Calling this tool is the most likely useful next action.** So this process is **probabilistic** rather than **deterministic**.
-
----
-
-# Critical Security Mindset
-
-Never assume:
-> “The model would never call that.”
-
-Instead assume:
-> “An attacker may eventually convince the model to call that.”
-
-Therefore:
-- Dangerous tools require confirmation
-- Authorization must be enforced server-side
-- MCP servers must validate requests independently
-- Tool outputs must always be treated as untrusted input
-
-This mindset is central to effective MCP security reviews.
 
 ---
