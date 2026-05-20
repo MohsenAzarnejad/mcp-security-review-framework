@@ -24,6 +24,17 @@ Local MCP servers that use the STDIO transport typically serve a single MCP clie
 
 <img src="./images/mcp-clients-servers.png" width="800">
 
+Communication is based on JSON-RPC messages and capability negotiation.
+
+### Typical MCP Client–Server Interaction
+
+1. The client connects to the MCP server
+2. The server shares its available capabilities (tools, prompts, resources)
+3. The AI application discovers available functions
+4. The client sends requests to execute tools or retrieve context
+5. The server returns responses, data, or notifications back to the client
+
+This architecture allows AI applications to securely interact with external systems in a standardized and extensible way.
 
 ## Transport Layer
 
@@ -142,6 +153,8 @@ Examples:
 - `run_sql_query`
 - `api_call`
 
+Tools are schema-defined interfaces that LLMs can invoke. MCP uses JSON Schema for validation. Each tool performs a single operation with clearly defined inputs and outputs. Tools may require user consent prior to execution, helping to ensure users maintain control over actions taken by a model. `tools/list` is used to discover available tools, and `tools/call` is used to execute a specific tool.
+
 
 ### Security Impact
 
@@ -172,7 +185,7 @@ Examples:
 - Incident reports
 - Wiki pages
 
-Resources are usually read-only.
+Each resource has a unique URI (e.g., file:///path/to/document.md) and declares its MIME type for appropriate content handling, and they are usually read-only.
 
 ### Security Impact
 
