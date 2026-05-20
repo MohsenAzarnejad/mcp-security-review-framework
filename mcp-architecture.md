@@ -133,15 +133,15 @@ Understanding the distinction between tools, resources, and prompts is critical 
 
 ## Tools
 
-Tools perform actions.
+You can think of tools as `Functions the LLM can invoke.` They perform actions.
 
 Examples:
-- `query_grafana_logs`
+- `query_logs`
 - `create_ticket`
 - `delete_dashboard`
 - `run_sql_query`
+- `api_call`
 
-You can think of tools as `Functions the LLM can invoke.`
 
 ### Security Impact
 
@@ -166,7 +166,8 @@ Resources provide contextual data to the model.
 
 Examples:
 - Log files
-- Dashboards
+- Database records
+- API responses
 - Documentation
 - Incident reports
 - Wiki pages
