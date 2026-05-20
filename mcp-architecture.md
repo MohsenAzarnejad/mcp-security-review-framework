@@ -35,8 +35,6 @@ The transport layer matters for security because it determines:
 - Logging and monitoring capabilities
 - Isolation boundaries
 
----
-
 ### stdio Transport
 
 `stdio` transport means the host launches the MCP server as a local process and communicates using standard input and standard output streams.
@@ -69,8 +67,6 @@ This model is common for local desktop integrations.
 - Can it access unrestricted filesystem paths?
 - Can it spawn subprocesses?
 - Does it run with excessive OS privileges?
-
----
 
 ### HTTP/SSE Transport
 
@@ -106,8 +102,6 @@ Host → HTTPS → Remote MCP Server
 - Are requests rate limited?
 - Are origins validated?
 
----
-
 ### Streamable HTTP
 
 Streamable HTTP enables long-lived bidirectional communication over HTTP connections.
@@ -137,8 +131,6 @@ Advantages include:
 
 Understanding the distinction between tools, resources, and prompts is critical for MCP security reviews.
 
----
-
 ## Tools
 
 Tools perform actions.
@@ -167,8 +159,6 @@ Tools are usually the highest-risk part of an MCP server because they can:
 - Rate limiting
 - Injection prevention
 - Dangerous action controls
-
----
 
 ## Resources
 
@@ -205,8 +195,6 @@ If returned inside a resource, the model may interpret it as instructions.
 - Output sanitization
 - Data classification
 
----
-
 ## Prompts
 
 Prompts are reusable instruction templates.
@@ -235,8 +223,6 @@ Prompts can:
 
 Credential handling is one of the most important review areas.
 
----
-
 ## Shared Service Credentials
 
 The MCP server uses one shared backend credential.
@@ -255,8 +241,6 @@ All users effectively share the same backend identity.
 - Poor auditability
 - Weak user attribution
 
----
-
 ## Per-User OAuth Tokens
 
 This is preferred model:
@@ -274,8 +258,6 @@ This is preferred model:
 - Scope minimization
 - Refresh handling
 - Expiration management
-
----
 
 ## Credential Forwarding
 
@@ -296,8 +278,6 @@ Authorization: Bearer <token>
 - Header validation
 - Secure logging
 - Proper forwarding restrictions
-
----
 
 ## Environment Variables
 
@@ -340,8 +320,6 @@ The LLM reads this information and probabilistically determines which tool best 
 - Tool descriptions are part of the attack surface
 - Tool outputs are untrusted input
 - Prompt injection can influence tool selection
-
----
 
 ## Tool Selection Process
 
