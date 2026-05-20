@@ -326,10 +326,7 @@ export GITHUB_TOKEN=xxx
 
 This is one of the most important AI security concepts.
 
-The host typically:
-1. Provides the model with available tools
-2. Includes tool descriptions and schemas
-3. The model decides which tool to call
+The host typically provides the model with available tools, includes tool descriptions and schemas, and then the model decides which tool to call.
 
 Example:
 
@@ -340,9 +337,7 @@ Example:
 }
 ```
 
-The LLM reads this information and probabilistically determines which tool best matches the task.
-
-This means:
+The LLM reads this information and probabilistically determines which tool best matches the task. This means:
 - Tool descriptions are part of the attack surface
 - Tool outputs are untrusted input
 - Prompt injection can influence tool selection
@@ -358,9 +353,7 @@ The model considers:
 - Tool descriptions
 - Previous tool outputs
 
-Then it predicts **Calling this tool is the most likely useful next action.**
-
-This process is probabilistic rather than deterministic.
+Then it predicts **Calling this tool is the most likely useful next action.** So this process is **probabilistic** rather than **deterministic**.
 
 ---
 
