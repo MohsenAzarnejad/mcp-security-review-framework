@@ -1,20 +1,13 @@
 # MCP Server Security Review Checklist
 
-**Version:** 1.0  
-**Purpose:** Security review checklist for internal, third-party, and forked MCP servers  
-**Audience:** Security reviewers, AppSec engineers, platform engineers, AI/LLM engineers  
-**Review style:** Severity-ranked controls, evidence collection, and practical abuse tests  
-
 ---
 
 # Table of Contents
 
 1. [How to Use This Checklist](#1-how-to-use-this-checklist)
 2. [Severity Definitions](#2-severity-definitions)
-3. [Review Summary Template](#3-review-summary-template)
-4. [Reviewer Mindset](#4-reviewer-mindset)
-5. [MCP Server Review Workflow](#5-mcp-server-review-workflow)
-7. [Severity-Sorted Control Index](#6-severity-sorted-control-index)
+3. [MCP Server Review Workflow](#3-mcp-server-review-workflow)
+4. [Control Index](#4-severity-sorted-control-index)
 8. [Reviewer Scoring](#7-reviewer-scoring)
 9. [Critical-Severity Controls](#8-critical-severity-controls)
 10. [High-Severity Controls](#9-high-severity-controls)
@@ -55,30 +48,9 @@ For each control, record:
 
 ---
 
-# 3. Review Summary Template
+# 3. MCP Server Review Workflow
 
-| Item | Answer |
-|---|---|
-| MCP Server Name |  |
-| Owner Team |  |
-| Repository / Source |  |
-| Internal / Third-Party / Forked |  |
-| Deployment Model | Local stdio / Remote HTTP / SSE / Streamable HTTP |
-| Backend Systems Accessed |  |
-| Authentication Method |  |
-| Credential Type | OAuth / Service token / API key / Environment variable |
-| Tool Count |  |
-| Read-only Tools |  |
-| Write Tools |  |
-| Destructive Tools |  |
-| Sensitive Data Types | Logs / PII / Secrets / Metrics / Source Code / Other |
-| Final Decision | Approved / Restricted / Blocked |
-| Reviewer |  |
-| Review Date |  |
-
----
-
-# 4. Reviewer Mindset
+**Reviewer Mindset**
 
 Do not ask:
 
@@ -105,8 +77,6 @@ Never trust:
 Always enforce security in deterministic server-side logic.
 
 ---
-
-# 5. MCP Server Review Workflow
 
 ## Step 1: Inventory
 - Identify all tools, resources, and prompts.
@@ -168,7 +138,7 @@ Test:
 
 ---
 
-# 6. Severity-Sorted Control Index
+# 4. Control Index
 
 ## Critical
 | ID | Control |
@@ -183,16 +153,15 @@ Test:
 ## High
 | ID | Control |
 |---|---|
-| HI-01 | Inventory all tools/resources/prompts |
-| HI-02 | Validate tool arguments strictly |
-| HI-03 | Protect tool metadata integrity |
-| HI-04 | Isolate MCP servers at runtime |
-| HI-05 | Secure HTTP/SSE transport |
-| HI-06 | Avoid unsafe token passthrough |
-| HI-07 | Use OAuth 2.1 with PKCE |
-| HI-08 | Prevent cross-server confusion |
-| HI-09 | Protect sensitive data in tool results |
-| HI-10 | Implement audit logging |
+| HI-01 | Validate tool arguments strictly |
+| HI-02 | Protect tool metadata integrity |
+| HI-03 | Isolate MCP servers at runtime |
+| HI-04 | Secure HTTP/SSE transport |
+| HI-05 | Avoid unsafe token passthrough |
+| HI-06 | Use OAuth 2.1 with PKCE |
+| HI-07 | Prevent cross-server confusion |
+| HI-08 | Protect sensitive data in tool results |
+| HI-09 | Implement audit logging |
 
 ## Medium
 | ID | Control |
@@ -204,18 +173,16 @@ Test:
 | ME-05 | Verify installation/consent security |
 | ME-06 | Enforce tenant boundaries |
 | ME-07 | Secure local stdio deployment |
-| ME-08 | Add MCP abuse-case security tests |
 
 ## Low
 | ID | Control |
 |---|---|
-| LO-01 | Document threat model |
-| LO-02 | Use safe tool naming |
-| LO-03 | Maintain review decision record |
+| LO-01 | Use safe tool naming |
+| LO-02 | Maintain review decision record |
 
 ---
 
-# 7. Reviewer Scoring
+# 5. Reviewer Scoring
 
 | Result | Meaning |
 |---|---|
@@ -227,7 +194,7 @@ Test:
 
 ---
 
-# 8. Critical-Severity Controls
+# 6. Critical-Severity Controls
 
 ## CR-01: Enforce Server-Side Authorization for Every Tool Call
 
@@ -452,37 +419,9 @@ Tools that fetch URLs or connect to arbitrary hosts must enforce strict destinat
 
 ---
 
-# 9. High-Severity Controls
+# 7. High-Severity Controls
 
-## HI-01: Inventory All Tools, Resources, and Prompts
-
-**Severity:** High  
-**Category:** Asset inventory  
-
-### Control
-The review must include a complete inventory of all tools, resources, and prompts exposed by the MCP server.
-
-### Evidence to Collect
-Create a table like this:
-
-| Name | Type | Description | Risk | Read/Write | Backend System | Auth Required |
-|---|---|---|---|---|---|---|
-|  | Tool / Resource / Prompt |  | Critical / High / Medium / Low | Read / Write / Delete |  | Yes / No |
-
-### Review Questions
-- Are there hidden or undocumented tools?
-- Are tool descriptions accurate?
-- Are dangerous tools clearly marked?
-- Are unused tools disabled?
-
-### Pass Criteria
-- Complete capability inventory exists.
-- Every capability has a risk rating.
-- Dangerous or unused tools are restricted or removed.
-
----
-
-## HI-02: Validate Tool Arguments Strictly
+## HI-01: Validate Tool Arguments Strictly
 
 **Severity:** High  
 **Category:** Input validation  
@@ -517,7 +456,7 @@ Every tool must validate inputs using a strict schema and reject unexpected fiel
 
 ---
 
-## HI-03: Protect Tool Description and Schema Integrity
+## HI-02: Protect Tool Description and Schema Integrity
 
 **Severity:** High  
 **Category:** Tool poisoning  
@@ -557,7 +496,7 @@ Look for phrases like:
 
 ---
 
-## HI-04: Isolate MCP Servers at Runtime
+## HI-03: Isolate MCP Servers at Runtime
 
 **Severity:** High  
 **Category:** Sandboxing and isolation  
@@ -592,7 +531,7 @@ MCP servers should run with least OS privilege, limited filesystem access, restr
 
 ---
 
-## HI-05: Secure HTTP/SSE and Streamable HTTP Transport
+## HI-04: Secure HTTP/SSE and Streamable HTTP Transport
 
 **Severity:** High  
 **Category:** Transport security  
@@ -629,7 +568,7 @@ Remote MCP servers must enforce TLS, authentication, replay protection where app
 
 ---
 
-## HI-06: Avoid Unsafe Token Passthrough
+## HI-05: Avoid Unsafe Token Passthrough
 
 **Severity:** High  
 **Category:** OAuth and identity  
@@ -657,7 +596,7 @@ Do not blindly pass user access tokens through the MCP server to downstream APIs
 
 ---
 
-## HI-07: Use OAuth 2.1 with PKCE for HTTP-Based User Authorization
+## HI-06: Use OAuth 2.1 with PKCE for HTTP-Based User Authorization
 
 **Severity:** High  
 **Category:** Authentication  
@@ -686,7 +625,7 @@ For HTTP-based MCP servers that support authorization, use OAuth 2.1 security pr
 
 ---
 
-## HI-08: Prevent Cross-Server and Cross-Tool Confusion
+## HI-07: Prevent Cross-Server and Cross-Tool Confusion
 
 **Severity:** High  
 **Category:** Multi-server isolation  
@@ -719,7 +658,7 @@ The LLM may see tool descriptions and outputs from multiple servers in the same 
 
 ---
 
-## HI-09: Protect Sensitive Data in Tool Results
+## HI-08: Protect Sensitive Data in Tool Results
 
 **Severity:** High  
 **Category:** Data protection  
@@ -749,35 +688,6 @@ Tool responses must minimize sensitive data returned to the model and user. Secr
 - Sensitive data is minimized and redacted.
 - Broad exports are restricted.
 - Results are filtered by permission and need.
-
----
-
-## HI-10: Implement Audit Logging for Tool Calls
-
-**Severity:** High  
-**Category:** Monitoring and auditing  
-
-### Control
-Log security-relevant MCP activity, especially tool invocation, user identity, target resource, parameters, result status, and confirmation events.
-
-### Evidence to Collect
-- Log schema
-- Sample logs
-- SIEM integration
-- Alert rules
-- Redaction rules
-
-### Review Questions
-- Can you answer who called which tool and why?
-- Are failed authorization attempts logged?
-- Are dangerous tool calls logged?
-- Are secrets redacted?
-- Are logs tamper-resistant?
-
-### Pass Criteria
-- Tool calls are auditable.
-- Logs are useful for investigations.
-- Sensitive values are redacted.
 
 ---
 
