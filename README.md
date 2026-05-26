@@ -9,45 +9,11 @@
 
 ---
 
-## 📚 What this is
-
-A complete, copy-pasteable methodology for auditing MCP servers in an enterprise setting. It includes:
-
-- **🚦 An 8-phase audit workflow** from intake to final recommendation.
-- **📋 70+ stable-ID controls** across 16 domains (auth, prompt injection, supply chain, sandboxing, and more).
-- **🚨 Hard Gates** — deterministic blockers above the severity ladder.
-- **📐 Likelihood × Impact risk scoring** with an AI-specific amplifier.
-- **✅ Status & Trust-Tier model** so the same audit can produce different deployment decisions.
-- **📄 Confluence-ready templates** and worked examples.
-- **🏗️ Mermaid architecture diagrams** including the canonical *untrusted-read → sensitive-write* anti-pattern.
-- **⚙️ 12 automation recommendations** ranked by ROI.
-
-## 🎯 Who this is for
+## Who this is for
 
 - **Security engineers** running MCP reviews.
 - **Platform / AI teams** preparing servers for review.
 - **CISOs and risk managers** defining MCP governance.
-
-
-## 💡 The one principle to internalize
-
-> **An MCP server does not create new access — it amplifies existing access by making it callable via an LLM.**
-
-Scope the credentials; everything else follows.
-
----
-
-## 📑 Document Metadata
-
-| Field | Value |
-|---|---|
-| Document Type | Security Standard / Audit Methodology |
-| Classification | Public |
-| Review Cadence | Quarterly (or upon material MCP spec change) |
-| License | CC BY 4.0 |
-| Related Standards | Secure SDLC, Third-Party Risk, Cloud Security Baseline, Data Classification Policy |
-
----
 
 
 ## 1. 🎯 Purpose & Scope
@@ -62,41 +28,14 @@ MCP servers are treated as **privileged software with agentic reach**: they exte
 
 ### Out of scope
 - The LLM/foundation model itself (covered by AI Model Risk Standard).
-- The MCP *client* (IDE, chat UI) — covered separately.
-- General application security review — this document supplements, not replaces, AppSec review.
+- The MCP *client* (IDE, chat UI) - covered separately.
+- General application security review - this document supplements, not replaces, AppSec review.
 
 ---
 
-## 2. 👥 Audience
+## 2. 🧠 MCP Threat Landscape (Reviewer Primer)
 
-- **Primary:** Security Engineers performing MCP reviews.
-- **Secondary:** MCP server owners (developers, vendor sponsors) preparing for review.
-- **Tertiary:** Risk, Compliance, IT, Platform, and AI Governance teams consuming review outputs.
-
----
-
-## 3. 📖 Definitions & Acronyms
-
-| Term | Definition |
-|---|---|
-| **MCP** | Model Context Protocol — open protocol exposing tools, resources, and prompts to LLM clients. |
-| **MCP Server** | Process or service exposing capabilities (tools, resources, prompts) over MCP. |
-| **MCP Client** | LLM-driven application that consumes MCP server capabilities (e.g., an IDE, agent, chat app). |
-| **Tool** | An MCP-exposed function the LLM can invoke (e.g., `read_file`, `create_jira_ticket`). |
-| **Resource** | MCP-exposed data the LLM can read (files, DB rows, API responses). |
-| **Prompt** | Server-defined template the client can use to construct LLM prompts. |
-| **Trust Boundary** | Interface where data crosses from a less-trusted to more-trusted zone (or vice versa). |
-| **Tool Poisoning** | Hiding adversarial instructions inside a tool's description/schema so the LLM acts on them. |
-| **Indirect Prompt Injection** | Injection delivered via data the LLM reads (file contents, API response, ticket body), not via the user prompt. |
-| **Rug Pull** | An MCP server changing its tool surface after approval (adding/altering tools the user never consented to). |
-| **Confused Deputy** | The server acting with its own elevated privileges on behalf of a less-privileged caller. |
-| **Blast Radius** | The set of systems/data an MCP server can affect if compromised or abused. |
-
----
-
-## 4. 🧠 MCP Threat Landscape (Reviewer Primer)
-
-### 4.0 The core framing principle
+### 2.0 The core framing principle
 
 > **An MCP server does not create new access — it amplifies existing access by making it callable via an LLM.**
 
@@ -108,7 +47,7 @@ This is the lens through which every MCP audit should begin. The MCP server inhe
 
 Therefore: **scoping the credentials is the audit's single highest-leverage control**, and deployment model (who runs the server, where, with whose identity) is part of that scope. A perfectly hardened MCP server given a `*:*` token is more dangerous than a sloppy MCP server given a read-only token to two dashboards.
 
-### 4.1 Specific attack surface
+### 2.1 Specific attack surface
 
 Before applying the checklist, the reviewer should internalize the unique attack surface of MCP. The three "poisoning" vectors below are deliberately separated because each demands a different control:
 
@@ -126,7 +65,7 @@ Before applying the checklist, the reviewer should internalize the unique attack
 
 ---
 
-## 5. 🚦 Audit Workflow
+## 3. 🚦 Audit Workflow
 
 The audit is an **8-phase, gated process**. Each phase has explicit entry criteria, deliverables, and reviewer sign-off.
 
@@ -209,9 +148,9 @@ Perform live testing against a non-prod instance:
 
 ---
 
-## 6. 🏷️ Classification & Tiering
+## 4. 🏷️ Classification & Tiering
 
-### 6.1 Server Classification (drives audit depth)
+### 4.1 Server Classification (drives audit depth)
 
 | Class | Definition | Audit Depth |
 |---|---|---|
@@ -221,7 +160,7 @@ Perform live testing against a non-prod instance:
 | **C4 — Internal-built** | Built by an internal team. | Full checklist + SDLC evidence + code review + threat model sign-off. |
 | **C5 — Experimental / Unknown** | Pre-release, prototype, or unvetted code. | Sandbox tier only; restricted access until reclassified. |
 
-### 6.2 Trust Tier (drives where it may run)
+### 4.2 Trust Tier (drives where it may run)
 
 | Tier | Name | Where Allowed | Data Allowed | Examples |
 |---|---|---|---|---|
@@ -232,7 +171,7 @@ Perform live testing against a non-prod instance:
 
 A server's status (§8) and tier (§6.2) are independent: a server can be **Approved at T1** but **Rejected for T3**.
 
-### 6.3 Audit Depth Proportionality
+### 4.3 Audit Depth Proportionality
 
 Not every audit needs to be exhaustive. Audit depth scales with **Classification × Requested Trust Tier × Data Sensitivity**. Reviewers should be explicit in the page about the depth applied and why.
 
@@ -247,7 +186,7 @@ Not every audit needs to be exhaustive. Audit depth scales with **Classification
 The reviewer should state in the executive summary: *"This audit was performed at **Standard** depth based on C3 × T2 × Confidential. A full audit would additionally cover X, Y, Z."* This is honest, gives readers calibration, and creates a clear trigger for deeper review if scope changes.
 
 
-## 7. 🚨 Severity Model
+## 5. 🚨 Severity Model
 
 | Severity | Definition | Examples | Remediation SLA |
 |---|---|---|---|
@@ -259,7 +198,7 @@ The reviewer should state in the executive summary: *"This audit was performed a
 
 **AI-specific impact modifier:** Findings whose impact is amplified by LLM context (e.g., a tool returns unsanitized user content into the model's context window) are escalated **one severity level** above their conventional rating. A medium-severity SSRF in a non-LLM API may be high-severity in an MCP tool, because the response feeds the model.
 
-### 7.1 Hard Gates (deterministic blockers)
+### 5.1 Hard Gates (deterministic blockers)
 
 Hard Gates sit **above** the severity model. They are categorical conditions that, if true, deny approval regardless of compensating arguments — unless an explicit risk acceptance path is exercised with documented sign-off. They exist because some failure modes (an unauthenticated endpoint; a hardcoded admin credential) cannot be reasoned-about case-by-case without inviting drift.
 
@@ -277,9 +216,8 @@ A Hard Gate triggered without a documented exception is an automatic **Reject**,
 
 
 ---
----
 
-## 8. ✅ Status Model & Lifecycle
+## 6. ✅ Status Model & Lifecycle
 
 | Status | Meaning | Who Sets | Next Step |
 |---|---|---|---|
@@ -307,7 +245,7 @@ A Hard Gate triggered without a documented exception is an automatic **Reject**,
 
 ---
 
-## 9. 📐 Risk Scoring Methodology
+## 7. 📐 Risk Scoring Methodology
 
 We use a **Likelihood × Impact** matrix, with an AI-specific amplification factor. Each finding is scored 1–5 on each axis.
 
@@ -348,11 +286,11 @@ Highest individual finding rating, capped by aggregate count:
 
 ---
 
-## 10. 📋 Security Control Catalog
+## 8. 📋 Security Control Catalog
 
 Controls are grouped into 16 domains. Each control has a stable ID of the form `MCP-<DOMAIN>-<NNN>`. Reviewers MUST address every control with one of: **Pass**, **Fail**, **N/A (justified)**, or **Compensating Control**.
 
-### 10.1 🔐 Identity & Authentication (AUTH)
+### 8.1 🔐 Identity & Authentication (AUTH)
 
 #### MCP-AUTH-001 — Strong authentication on all MCP endpoints
 - **Severity:** 🔴 Critical
@@ -389,7 +327,7 @@ Controls are grouped into 16 domains. Each control has a stable ID of the form `
 - **Validation:** Trace a call end-to-end: User A asks tool to read X. Verify the downstream call carries A's identity or a delegated token, not a shared SA.
 - **Remediation:** Implement OAuth On-Behalf-Of / token exchange. Where unavoidable, enforce identity-aware authorization in the server before any downstream call.
 
-### 10.2 🛡️ Authorization & RBAC (AUTHZ)
+### 8.2 🛡️ Authorization & RBAC (AUTHZ)
 
 #### MCP-AUTHZ-001 — Authorization enforced for every tool invocation
 - **Severity:** 🔴 Critical
@@ -426,7 +364,7 @@ Controls are grouped into 16 domains. Each control has a stable ID of the form `
 - **Validation:** Confirm separation of read vs write roles. Confirm destructive tools have `dangerous: true` or equivalent metadata.
 - **Remediation:** Split tools by side-effect class; gate writes behind elevated role + (where applicable) user confirmation step.
 
-### 10.3 🌐 Transport & Network (NET)
+### 8.3 🌐 Transport & Network (NET)
 
 #### MCP-NET-001 — TLS 1.2+ for all network transports
 - **Severity:** 🔴 Critical
@@ -463,7 +401,7 @@ Controls are grouped into 16 domains. Each control has a stable ID of the form `
 - **Validation:** From the running container, attempt egress to arbitrary destinations; confirm blocked. Review NetworkPolicy / security group / proxy ACL.
 - **Remediation:** Egress proxy with allow-list; K8s `NetworkPolicy`; security group rules. Block link-local (`169.254.169.254`) explicitly.
 
-### 10.4 📥 Input & Output Validation (IO)
+### 8.4 📥 Input & Output Validation (IO)
 
 #### MCP-IO-003 — Injection-safe handling in downstream calls
 - **Severity:** 🔴 Critical
@@ -493,7 +431,7 @@ Controls are grouped into 16 domains. Each control has a stable ID of the form `
 - **Validation:** Trigger tools with inputs causing large outputs; confirm truncation or refusal.
 - **Remediation:** Cap response bytes; paginate; truncate with explicit marker.
 
-### 10.5 🧰 Tool & Capability Risk (TOOL)
+### 8.5 🧰 Tool & Capability Risk (TOOL)
 
 #### MCP-TOOL-002 — No tool combines untrusted-read with sensitive-write in one session
 - **Severity:** 🔴 Critical (AI-amplified)
@@ -537,7 +475,7 @@ Controls are grouped into 16 domains. Each control has a stable ID of the form `
 - **Validation:** Add a tool at runtime; verify client behavior (consent prompt) and server emits change notification.
 - **Remediation:** Implement `tools/list_changed` notifications; enforce client-side re-consent UX.
 
-### 10.6 🤖 Prompt Injection & AI Surface (AI)
+### 8.6 🤖 Prompt Injection & AI Surface (AI)
 
 #### MCP-AI-001 — Tool outputs sanitized of control sequences
 - **Severity:** 🟠 High (AI-amplified)
@@ -574,7 +512,7 @@ Controls are grouped into 16 domains. Each control has a stable ID of the form `
 - **Validation:** Use known prompt-extraction probes; confirm no leakage.
 - **Remediation:** Filter outputs; treat prompts as secrets.
 
-### 10.7 🔑 Secrets & Token Handling (SEC)
+### 8.7 🔑 Secrets & Token Handling (SEC)
 
 #### MCP-SEC-001 — No secrets in code, manifests, or images
 - **Severity:** 🔴 Critical
@@ -625,7 +563,7 @@ Controls are grouped into 16 domains. Each control has a stable ID of the form `
 - **Validation:** Trigger error paths; inspect logs and responses.
 - **Remediation:** Structured logging with allow-listed fields; redaction middleware.
 
-### 10.8 📜 Logging, Audit & Monitoring (LOG)
+### 8.8 📜 Logging, Audit & Monitoring (LOG)
 
 #### MCP-LOG-001 — All tool invocations are audit-logged
 - **Severity:** 🟠 High
@@ -655,7 +593,7 @@ Controls are grouped into 16 domains. Each control has a stable ID of the form `
 - **Validation:** Inspect log pipeline; confirm WORM/immutable storage; check NTP.
 - **Remediation:** Forward to immutable store (e.g., S3 Object Lock, CloudWatch with retention lock).
 
-### 10.9 🏢 Multi-Tenancy & Isolation (TEN)
+### 8.9 🏢 Multi-Tenancy & Isolation (TEN)
 
 #### MCP-TEN-001 — Tenant identifier on every call and storage record
 - **Severity:** 🔴 Critical
@@ -678,7 +616,7 @@ Controls are grouped into 16 domains. Each control has a stable ID of the form `
 - **Validation:** Stress one tenant; confirm others unaffected.
 - **Remediation:** Token bucket per tenant; isolate expensive tools.
 
-### 10.10 📦 Sandboxing & Execution (EXEC)
+### 8.10 📦 Sandboxing & Execution (EXEC)
 
 #### MCP-EXEC-003 — No host mounts / no host network / no host PID
 - **Severity:** 🔴 Critical
@@ -715,7 +653,7 @@ Controls are grouped into 16 domains. Each control has a stable ID of the form `
 - **Validation:** Inspect limits; trigger high-load tool calls and observe enforcement.
 - **Remediation:** Set requests + limits; tune to baseline.
 
-### 10.11 💾 Data Handling & Privacy (DATA)
+### 8.11 💾 Data Handling & Privacy (DATA)
 
 #### MCP-DATA-002 — Encryption in transit and at rest
 - **Severity:** 🔴 Critical
@@ -752,7 +690,7 @@ Controls are grouped into 16 domains. Each control has a stable ID of the form `
 - **Validation:** Review retention configs; test deletion flow.
 - **Remediation:** TTLs; tombstone propagation; documented DSR support.
 
-### 10.12 🔗 Supply Chain & Dependencies (SUP)
+### 8.12 🔗 Supply Chain & Dependencies (SUP)
 
 #### MCP-SUP-001 — Pinned, signed dependencies
 - **Severity:** 🟠 High
@@ -782,7 +720,7 @@ Controls are grouped into 16 domains. Each control has a stable ID of the form `
 - **Validation:** OpenSSF Scorecard; manual repo review.
 - **Remediation:** Internal fork with security maintenance; or replace.
 
-### 10.13 🐳 Container, Kubernetes, & Cloud (INFRA)
+### 8.13 🐳 Container, Kubernetes, & Cloud (INFRA)
 
 #### MCP-INFRA-003 — Cloud IAM scoped per workload
 - **Severity:** 🔴 Critical
@@ -819,7 +757,7 @@ Controls are grouped into 16 domains. Each control has a stable ID of the form `
 - **Validation:** Review Secret provenance; confirm encryption-at-rest for etcd.
 - **Remediation:** ESO / Vault sidecar; encrypt etcd.
 
-### 10.14 🚒 Incident Response Readiness (IR)
+### 8.14 🚒 Incident Response Readiness (IR)
 
 #### MCP-IR-001 — Kill switch / disable path documented
 - **Severity:** 🟠 High
@@ -842,7 +780,7 @@ Controls are grouped into 16 domains. Each control has a stable ID of the form `
 - **Validation:** Confirm rotation; confirm vendor SLA clause.
 - **Remediation:** Add to PagerDuty; renegotiate vendor MSA.
 
-### 10.15 ⚖️ Compliance (COMP)
+### 8.15 ⚖️ Compliance (COMP)
 
 #### MCP-COMP-001 — Data residency respected
 - **Severity:** 🟠 High (when applicable)
@@ -865,7 +803,7 @@ Controls are grouped into 16 domains. Each control has a stable ID of the form `
 - **Validation:** Confirm retention setting; confirm export capability.
 - **Remediation:** Adjust retention; document.
 
-### 10.16 🔄 Operational Lifecycle (OPS)
+### 8.16 🔄 Operational Lifecycle (OPS)
 
 #### MCP-OPS-001 — Owner and on-call defined
 - **Severity:** 🟠 High
@@ -897,9 +835,9 @@ Controls are grouped into 16 domains. Each control has a stable ID of the form `
 
 ---
 
-## 11. 🏗️ Architecture & Trust-Boundary Diagrams
+## 9. 🏗️ Architecture & Trust-Boundary Diagrams
 
-### 11.1 Generic MCP trust boundary diagram (paste into each audit and adapt)
+### 9.1 Generic MCP trust boundary diagram (paste into each audit and adapt)
 
 ```mermaid
 flowchart LR
@@ -939,7 +877,7 @@ flowchart LR
 - Which arrows return data that ends up in the LLM context? (Mark "AI-amplified".)
 - Which Downstream nodes carry adversary-controllable content?
 
-### 11.2 The dangerous pattern — single-session untrusted-read + sensitive-write
+### 9.2 The dangerous pattern — single-session untrusted-read + sensitive-write
 
 ```mermaid
 flowchart LR
@@ -959,7 +897,7 @@ flowchart LR
 
 The defining MCP risk: an attacker who can influence *any* data the agent reads can drive *any* action the agent can take.
 
-### 11.3 Hardened reference architecture (recommended)
+### 9.3 Hardened reference architecture (recommended)
 
 ```mermaid
 flowchart LR
@@ -986,7 +924,7 @@ Key properties:
 
 ---
 
-## 12. ⚙️ Automation Recommendations
+## 10. ⚙️ Automation Recommendations
 
 The audit becomes scalable only if these checks are codified. Recommended automation, in order of ROI:
 
@@ -1007,7 +945,7 @@ The audit becomes scalable only if these checks are codified. Recommended automa
 
 ---
 
-## 13. 📌 Appendix A — Quick Decision Cheat Sheet
+## 11. 📌 Appendix A — Quick Decision Cheat Sheet
 
 Use only after the full checklist is done; for first-pass triage of obvious blockers.
 
@@ -1025,7 +963,7 @@ Use only after the full checklist is done; for first-pass triage of obvious bloc
 
 ---
 
-## 14. 🛑 Appendix B — Glossary of Common Anti-Patterns
+## 12. 🛑 Appendix B — Glossary of Common Anti-Patterns
 
 | Name | Pattern | Why it's dangerous |
 |---|---|---|

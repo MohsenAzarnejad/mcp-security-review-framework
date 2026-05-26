@@ -6,14 +6,12 @@
 
 1. [How to Use This Checklist](#1-how-to-use-this-checklist)
 2. [Severity Definitions](#2-severity-definitions)
-3. [MCP Server Review Workflow](#3-mcp-server-review-workflow)
-4. [Control Index](#4-severity-sorted-control-index)
-8. [Reviewer Scoring](#7-reviewer-scoring)
-9. [Critical-Severity Controls](#8-critical-severity-controls)
-10. [High-Severity Controls](#9-high-severity-controls)
-11. [Medium-Severity Controls](#10-medium-severity-controls)
-12. [Low-Severity Controls](#11-low-severity-controls)
-13. [References](#12-references)
+3. [Control Index](#3-control-index)
+4. [Critical-Severity Controls](#4-critical-severity-controls)
+5. [High-Severity Controls](#5-high-severity-controls)
+6. [Medium-Severity Controls](#6-medium-severity-controls)
+7. [Low-Severity Controls](#7-low-severity-controls)
+8. [References](#8-references)
 
 ---
 
@@ -23,8 +21,8 @@ Use this document when reviewing any MCP server, including:
 
 - Internal MCP servers
 - Forked third-party MCP servers
-- Locally executed MCP servers using `stdio`
-- Remote MCP servers using HTTP/SSE or Streamable HTTP
+- Locally executed MCP servers
+- Remote MCP servers
 
 For each control, record:
 
@@ -48,97 +46,7 @@ For each control, record:
 
 ---
 
-# 3. MCP Server Review Workflow
-
-**Reviewer Mindset**
-
-Do not ask:
-
-> Would the model normally call this dangerous tool?
-
-Ask:
-
-> Could an attacker eventually influence the model, tool output, metadata, or user context so that this dangerous tool is called?
-
-The MCP server must remain safe even when the model is:
-- Confused
-- Manipulated
-- Operating on malicious external content
-- Receiving poisoned tool outputs
-- Interacting with untrusted resources
-
-Never trust:
-- Tool output
-- Resource content
-- Tool descriptions from untrusted sources
-- User-provided URLs or file paths
-- The model's intent
-
-Always enforce security in deterministic server-side logic.
-
----
-
-## Step 1: Inventory
-- Identify all tools, resources, and prompts.
-- Identify backend systems and credentials.
-- Identify deployment model and transport.
-
-## Step 2: Data Flow
-
-What systems does it connect to? What credentials does it use? What can it read/write?
-
-Draw a simple flow:
-
-```text
-User → Host → MCP Client → MCP Server → Backend System
-```
-
-Add:
-- Trust boundaries
-- Credentials
-- Sensitive data
-- Logs
-- Network paths
-
-## Step 3: Threat Model
-Ask:
-- What can the LLM cause this server to do?
-- What happens if prompt injection succeeds?
-- What happens if tool output is malicious?
-- What happens if credentials leak?
-
-## Step 4: Code Review
-Focus on:
-- Tool handlers
-- Auth checks
-- Input validation
-- File access
-- Network calls
-- Command execution
-- Secrets
-- Logging
-
-## Step 5: Abuse Testing
-Test:
-- Prompt injection
-- Authorization bypass
-- SSRF
-- Command injection
-- Path traversal
-- Excessive data export
-- Missing confirmations
-
-## Step 6: Risk Decision
-
-| Decision | Meaning |
-|---|---|
-| Approved | No blocking issues |
-| Approved with restrictions | Allowed only with documented constraints |
-| Blocked | Critical findings exist |
-
----
-
-# 4. Control Index
+# 3. Control Index
 
 ## Critical
 | ID | Control |
@@ -182,19 +90,7 @@ Test:
 
 ---
 
-# 5. Reviewer Scoring
-
-| Result | Meaning |
-|---|---|
-| 0 Critical + 0 High | Usually acceptable for approval |
-| Any Critical | Block production use |
-| 1-3 High | Restrict deployment until mitigated |
-| More than 3 High | Block broad rollout |
-| Medium/Low only | Track in remediation backlog |
-
----
-
-# 6. Critical-Severity Controls
+# 4. Critical-Severity Controls
 
 ## CR-01: Enforce Server-Side Authorization for Every Tool Call
 
@@ -419,7 +315,7 @@ Tools that fetch URLs or connect to arbitrary hosts must enforce strict destinat
 
 ---
 
-# 7. High-Severity Controls
+# 5. High-Severity Controls
 
 ## HI-01: Validate Tool Arguments Strictly
 
@@ -691,7 +587,7 @@ Tool responses must minimize sensitive data returned to the model and user. Secr
 
 ---
 
-# 10. Medium-Severity Controls
+# 6. Medium-Severity Controls
 
 ## ME-01: Disable Unused Tools, Resources, and Prompts
 
@@ -857,7 +753,7 @@ The repository should include security tests for prompt injection, authorization
 
 ---
 
-# 11. Low-Severity Controls
+# 7. Low-Severity Controls
 
 ## LO-01: Document the Server Threat Model
 
@@ -909,7 +805,7 @@ Keep a record of approval decision, accepted risks, compensating controls, and r
 
 ---
 
-# 12. References
+# 8. References
 
 The checklist is based on the following public guidance:
 
