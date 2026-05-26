@@ -48,7 +48,7 @@ For each control, record:
 
 # 3. Control Index
 
-# Critical Controls
+The table below lists all security controls:
 
 | ID | Control |
 |---|---|
@@ -59,13 +59,6 @@ For each control, record:
 | CR-05 | Prevent command injection |
 | CR-06 | Prevent SSRF and unsafe URL fetching |
 | CR-07 | Sandbox arbitrary code execution |
-
----
-
-# High Controls
-
-| ID | Control |
-|---|---|
 | HI-01 | Validate tool arguments strictly |
 | HI-02 | Protect tool metadata integrity |
 | HI-03 | Isolate MCP servers at runtime |
@@ -78,13 +71,6 @@ For each control, record:
 | HI-10 | Require re-consent for dynamic tool registration |
 | HI-11 | Prevent DNS rebinding and unsafe browser-origin access |
 | HI-12 | Label untrusted resource/tool output |
-
----
-
-# Medium Controls
-
-| ID | Control |
-|---|---|
 | ME-01 | Disable unused tools |
 | ME-02 | Rate limit expensive operations |
 | ME-03 | Sanitize errors/debug output |
@@ -94,13 +80,6 @@ For each control, record:
 | ME-07 | Secure local stdio deployment |
 | ME-08 | Add MCP-specific security tests to CI |
 | ME-09 | Perform dynamic runtime MCP validation |
-
----
-
-# Low Controls
-
-| ID | Control |
-|---|---|
 | LO-01 | Document server threat model |
 | LO-02 | Use safe tool naming |
 | LO-03 | Maintain review decision record |
