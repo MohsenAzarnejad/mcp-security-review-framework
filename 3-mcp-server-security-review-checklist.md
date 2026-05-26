@@ -111,7 +111,8 @@ For each control, record:
 
 ## CR-01: Enforce Server-Side Authorization for Every Tool Call
 
-**Severity:** 🔴 Critical
+**Severity:** 🟣 Critical
+
 **Category:** Authentication and authorization  
 
 ### Control
@@ -147,7 +148,8 @@ The LLM can be manipulated through prompt injection, tool poisoning, malicious r
 
 ## CR-02: Use Least-Privilege Credentials
 
-**Severity:** 🔴 Critical 
+**Severity:** 🟣 Critical 
+
 **Category:** Secrets and identity  
 
 ### Control
@@ -187,7 +189,8 @@ Credentials used by the MCP server must be scoped to the minimum permissions req
 
 ## CR-03: Prevent Destructive or Sensitive Actions Without Explicit Confirmation
 
-**Severity:** 🔴 Critical
+**Severity:** 🟣 Critical
+
 **Category:** Human-in-the-loop controls  
 
 ### Control
@@ -228,7 +231,8 @@ Tools that perform destructive, irreversible, sensitive, or externally visible a
 
 ## CR-04: Treat Tool and Resource Output as Untrusted Input
 
-**Severity:** 🔴 Critical
+**Severity:** 🟣 Critical
+
 **Category:** Prompt injection and tool poisoning  
 
 ### Control
@@ -267,7 +271,8 @@ Then check whether the model follows it.
 
 ## CR-05: Prevent Command Injection and Unsafe Process Execution
 
-**Severity:** 🔴 Critical
+**Severity:** 🟣 Critical
+
 **Category:** Runtime safety  
 
 ### Control
@@ -300,7 +305,8 @@ The MCP server must not pass user-controlled or model-controlled input to shell 
 
 ## CR-06: Prevent SSRF and Unsafe URL Fetching
 
-**Severity:** 🔴 Critical
+**Severity:** 🟣 Critical
+
 **Category:** Network security  
 
 ### Control
@@ -332,8 +338,9 @@ Tools that fetch URLs or connect to arbitrary hosts must enforce strict destinat
 
 ## CR-07: Sandbox arbitrary code execution
 
-- **Severity:** 🔴 Critical
-- **Description:** Tools like `exec_shell`, `run_python`, `eval` MUST run in a hardened sandbox (network-isolated, ephemeral FS, resource-limited) and MUST require Trust Tier T2+ approval with explicit sign-off.
+**Severity:** 🟣 Critical
+
+**Description:** Tools like `exec_shell`, `run_python`, `eval` MUST run in a hardened sandbox (network-isolated, ephemeral FS, resource-limited) and MUST require Trust Tier T2+ approval with explicit sign-off.
 - **Risk:** LLM-driven RCE on host with full identity.
 - **Validation:** Inspect sandbox tech (gVisor, Firecracker, nsjail, ephemeral container); attempt escape; verify resource limits.
 - **Remediation:** Use battle-tested sandbox; deny by default; isolate per call; never share state between calls without explicit need.
@@ -345,7 +352,8 @@ Tools that fetch URLs or connect to arbitrary hosts must enforce strict destinat
 
 ## HI-01: Validate Tool Arguments Strictly
 
-**Severity:** 🟠 High
+**Severity:** 🔴 High
+
 **Category:** Input validation  
 
 ### Control
@@ -380,7 +388,8 @@ Every tool must validate inputs using a strict schema and reject unexpected fiel
 
 ## HI-02: Protect Tool Description and Schema Integrity
 
-**Severity:** 🟠 High
+**Severity:** 🔴 High
+
 **Category:** Tool poisoning  
 
 ### Control
@@ -420,7 +429,8 @@ Look for phrases like:
 
 ## HI-03: Isolate MCP Servers at Runtime
 
-**Severity:** 🟠 High
+**Severity:** 🔴 High
+
 **Category:** Sandboxing and isolation  
 
 ### Control
@@ -455,7 +465,8 @@ MCP servers should run with least OS privilege, limited filesystem access, restr
 
 ## HI-04: Secure HTTP/SSE and Streamable HTTP Transport
 
-**Severity:** 🟠 High
+**Severity:** 🔴 High
+
 **Category:** Transport security  
 
 ### Control
@@ -492,7 +503,8 @@ Remote MCP servers must enforce TLS, authentication, replay protection where app
 
 ## HI-05: Avoid Unsafe Token Passthrough
 
-**Severity:** 🟠 High
+**Severity:** 🔴 High
+
 **Category:** OAuth and identity  
 
 ### Control
@@ -520,7 +532,8 @@ Do not blindly pass user access tokens through the MCP server to downstream APIs
 
 ## HI-06: Use OAuth 2.1 with PKCE for HTTP-Based User Authorization
 
-**Severity:** 🟠 High
+**Severity:** 🔴 High
+
 **Category:** Authentication  
 
 ### Control
@@ -549,7 +562,8 @@ For HTTP-based MCP servers that support authorization, use OAuth 2.1 security pr
 
 ## HI-07: Prevent Cross-Server and Cross-Tool Confusion
 
-**Severity:** 🟠 High
+**Severity:** 🔴 High
+
 **Category:** Multi-server isolation  
 
 ### Control
@@ -582,7 +596,8 @@ The LLM may see tool descriptions and outputs from multiple servers in the same 
 
 ## HI-08: Protect Sensitive Data in Tool Results
 
-**Severity:** 🟠 High
+**Severity:** 🔴 High
+
 **Category:** Data protection  
 
 ### Control
@@ -613,29 +628,105 @@ Tool responses must minimize sensitive data returned to the model and user. Secr
 
 ## HI-10 — Require Re-Consent for Dynamic Tool Registration
 
-**Severity:** 🟠 High
-- **Description:** If the server supports dynamic tool registration, the client/user MUST be re-prompted to consent before any new tool can be invoked.
-- **Risk:** Rug pull — a server adds a `delete_all_files` tool after initial approval.
-- **Validation:** Add a tool at runtime; verify client behavior (consent prompt) and server emits change notification.
-- **Remediation:** Implement `tools/list_changed` notifications; enforce client-side re-consent UX.
+**Severity:** 🔴 High
+
+**Category:** Dynamic capability management  
+
+### Control
+If the MCP server supports dynamic tool registration or capability updates, users must explicitly re-consent before newly added tools become usable.
+
+### Why It Matters
+Prevents “rug-pull” attacks where a previously trusted MCP server silently introduces dangerous tools after approval.
+
+### Evidence to Collect
+- Dynamic registration workflow
+- Tool update notifications
+- Client/server consent logic
+- Audit logs showing re-consent events
+
+### Review Questions
+- Can tools be added dynamically after installation?
+- Does the client notify the user about new tools?
+- Are newly added tools blocked until approval?
+- Are dynamic changes logged?
+
+### Abuse Tests
+- Add a new dangerous tool after initial approval.
+- Observe whether the client requests re-consent.
+- Attempt tool invocation before approval.
+
+### Pass Criteria
+- New tools require explicit re-approval before use.
+- Dynamic capability changes are visible and auditable.
 
 
 ## HI-11 — Prevent DNS Rebinding and Unsafe Browser-Origin Access
 
-- **Severity:** 🟠 High
-- **Description:** HTTP-based local MCP servers MUST validate `Origin` and reject unexpected hosts to prevent DNS-rebinding attacks from browser contexts.
-- **Risk:** A malicious web page can resolve a controlled domain to 127.0.0.1 and call local MCP tools as the user.
-- **Validation:** Send requests with unexpected `Origin` and `Host` headers; confirm rejection.
-- **Remediation:** Implement strict Origin allow-list; validate `Host` header; require a non-replayable token.
+**Severity:** 🔴 High
+
+**Category:** Browser and local transport security  
+
+### Control
+HTTP-based local MCP servers must validate Origin and Host headers to prevent DNS rebinding and browser-origin attacks.
+
+### Why It Matters
+A malicious webpage may attempt to access localhost MCP servers through browser-based attacks.
+
+### Evidence to Collect
+- Origin validation logic
+- Host validation rules
+- Localhost binding configuration
+- CORS configuration
+
+### Review Questions
+- Are Origin headers validated?
+- Is localhost access restricted?
+- Are Host headers verified?
+- Is CORS narrowly scoped?
+
+### Abuse Tests
+- Send requests with unexpected Origin headers.
+- Send requests with forged Host headers.
+- Attempt cross-origin browser access.
+
+### Pass Criteria
+- Unexpected Origin/Host values are rejected.
+- Local MCP servers are protected from browser-origin abuse.
 
 
 ## HI-12 — Label Untrusted Resource/Tool Output
 
-- **Severity:** 🟠 High (AI-amplified)
-- **Description:** MCP resources returned to the client MUST carry classification labels (e.g., source, trust level) so client prompts can constrain model behavior accordingly.
-- **Risk:** Untrusted resource content (a wiki page edited by an outsider) is treated as authoritative.
-- **Validation:** Inspect resource metadata; confirm origin + trust labels.
-- **Remediation:** Standardize resource metadata; document client expectations.
+**Severity:** 🔴 High  
+
+**Category:** Prompt injection defense  
+
+### Control
+Resource and tool outputs originating from untrusted or external sources should be explicitly labeled or isolated as untrusted content.
+
+### Why It Matters
+Prevents models from incorrectly treating external content as trusted instruction.
+
+### Evidence to Collect
+- Resource metadata
+- Trust-label implementation
+- Prompt-boundary documentation
+- Client handling logic
+
+### Review Questions
+- Are untrusted sources identified?
+- Are external resources labeled clearly?
+- Can users distinguish trusted from untrusted content?
+- Are prompt boundaries documented?
+
+### Abuse Tests
+- Insert malicious instructions into external content.
+- Observe how the model/client handles the response.
+- Attempt prompt injection through labeled content.
+
+### Pass Criteria
+- Untrusted content is clearly identified.
+- External content cannot silently override trusted instructions.
+
 
 ---
 
@@ -643,7 +734,8 @@ Tool responses must minimize sensitive data returned to the model and user. Secr
 
 ## ME-01: Disable Unused Tools, Resources, and Prompts
 
-**Severity:** 🟡 Medium
+**Severity:** 🟠 Medium
+
 **Category:** Attack surface reduction  
 
 ### Control
@@ -662,7 +754,8 @@ Only expose capabilities required for approved use cases.
 
 ## ME-02: Rate Limit Expensive or Sensitive Operations
 
-**Severity:** 🟡 Medium
+**Severity:** 🟠 Medium
+
 **Category:** Abuse prevention  
 
 ### Control
@@ -681,7 +774,8 @@ Tools must enforce rate limits, pagination, time windows, and result-size caps.
 
 ## ME-03: Sanitize Errors and Debug Output
 
-**Severity:** 🟡 Medium
+**Severity:** 🟠 Medium
+
 **Category:** Information disclosure  
 
 ### Control
@@ -700,7 +794,8 @@ Errors returned to the model/user must not expose secrets, stack traces, interna
 
 ## ME-04: Pin and Scan Dependencies
 
-**Severity:** 🟡 Medium
+**Severity:** 🟠 Medium
+
 **Category:** Supply chain security  
 
 ### Control
@@ -729,7 +824,8 @@ Dependencies must be pinned, scanned, and reviewed. Third-party MCP servers must
 
 ## ME-05: Verify Installation and Consent Security
 
-**Severity:** 🟡 Medium
+**Severity:** 🟠 Medium
+
 **Category:** Deployment security  
 
 ### Control
@@ -750,7 +846,8 @@ Users or teams must know what MCP server they are installing, what tools it expo
 
 ## ME-06: Enforce Tenant, Workspace, and Project Boundaries
 
-**Severity:** 🟡 Medium
+**Severity:** 🟠 Medium
+
 **Category:** Multi-tenant security  
 
 ### Control
@@ -770,7 +867,8 @@ MCP servers must enforce tenant/workspace/project boundaries consistently in eve
 
 ## ME-07: Secure Local stdio Deployment
 
-**Severity:** 🟡 Medium
+**Severity:** 🟠 Medium
+
 **Category:** Local execution security  
 
 ### Control
@@ -792,7 +890,8 @@ For local `stdio` MCP servers, restrict environment variables, filesystem access
 
 ## ME-08: Add Security Tests for MCP-Specific Abuse Cases
 
-**Severity:** 🟡 Medium
+**Severity:** 🟠 Medium
+
 **Category:** Testing  
 
 ### Control
@@ -805,13 +904,49 @@ The repository should include security tests for prompt injection, authorization
 
 ## ME-09 — Perform Dynamic Runtime MCP Validation
 
-Reviewers should dynamically test:
-- initialize
-- tools/list
-- prompts/list
-- resources/list
+**Severity:** 🟠 Medium  
 
-Static analysis alone is insufficient.
+**Category:** Runtime validation and live testing  
+
+### Control
+Static analysis alone is insufficient for MCP security reviews. Reviewers should dynamically connect to the MCP server and validate the actual exposed runtime behavior.
+
+### Required Runtime Validation
+- `initialize`
+- `tools/list`
+- `prompts/list`
+- `resources/list`
+- Transport negotiation
+- Authentication behavior
+- Tool schema exposure
+- Error handling behavior
+
+### Evidence to Collect
+- Runtime tool inventory
+- Captured protocol responses
+- Screenshots or logs from MCP Inspector/testing tools
+- Authentication test results
+- Live schema output
+
+### Review Questions
+- Do runtime-exposed tools match the reviewed inventory?
+- Are undocumented tools exposed dynamically?
+- Are tool schemas stricter or weaker than expected?
+- Are authentication and authorization enforced consistently?
+- Can dangerous tools be invoked unexpectedly?
+
+### Abuse Tests
+- Attempt runtime tool enumeration
+- Test malformed requests
+- Test missing/invalid authentication
+- Compare runtime tools against documented tools
+- Attempt unauthorized tool invocation
+
+### Pass Criteria
+- Runtime behavior matches reviewed documentation.
+- No unexpected tools or prompts are exposed.
+- Authentication and authorization behave as expected.
+- Dynamic testing does not reveal hidden capabilities.
 
 
 ---
@@ -820,51 +955,145 @@ Static analysis alone is insufficient.
 
 ## LO-01: Document the Server Threat Model
 
-**Severity:** Low  
+**Severity:** 🟡 Low
+
 **Category:** Documentation  
 
 ### Control
-Each MCP server should have a short threat model describing assets, actors, trust boundaries, credentials, and high-risk tools.
+Each MCP server should have a lightweight threat model that describes what the server can access, what it can change, who can use it, and which trust boundaries it crosses.
+
+### Why It Matters
+MCP servers often connect LLMs to sensitive systems. Without a threat model, reviewers may miss important risks such as broad credentials, cross-tenant access, indirect prompt injection, unsafe tool combinations, or unexpected downstream data exposure.
+
+### Evidence to Collect
+- Threat model document
+- Architecture diagram
+- Data-flow diagram
+- Trust-boundary notes
+- Credential inventory
+- List of high-risk tools
+- List of downstream systems
+- Accepted-risk decisions
+
+### Review Questions
+- What assets can the MCP server read or modify?
+- Which users, teams, tenants, or systems can invoke it?
+- Which credentials does it use?
+- Which downstream APIs or databases does it call?
+- What data classifications can appear in tool inputs and outputs?
+- Which tools are destructive, externally visible, or sensitive?
+- What assumptions must remain true for the server to be safe?
+
+### Abuse Tests
+- Walk through one prompt-injection abuse case.
+- Walk through one authorization-bypass abuse case.
+- Walk through one credential-leakage abuse case.
+- Walk through one excessive-data-exposure abuse case.
 
 ### Pass Criteria
-- Threat model exists and is updated after major changes.
+- A threat model exists and is understandable by reviewers.
+- Assets, actors, trust boundaries, credentials, and high-risk tools are documented.
+- Important risks have owners, mitigations, or accepted-risk decisions.
+- The threat model is updated when tools, credentials, or transports change.
 
 ---
 
 ## LO-02: Provide Safe Tool Naming and Descriptions
 
-**Severity:** Low  
+**Severity:** 🟡 Low  
+
 **Category:** Usability and safety  
 
 ### Control
-Tool names and descriptions should be clear, accurate, and non-misleading.
+Tool names and descriptions should clearly describe what the tool does, what system it affects, whether it is read-only or write-capable, and whether it may expose sensitive data or perform high-impact actions.
 
-### Examples
-Prefer:
+### Why It Matters
+LLMs use tool names and descriptions when deciding which tool to call. Ambiguous or misleading names can cause unsafe tool selection, reviewer confusion, and poor user understanding.
+
+### Good Examples
 - `query_readonly_grafana_logs`
+- `search_dashboards`
+- `get_incident_status`
+- `create_ticket_with_confirmation`
 
-Avoid:
+### Bad Examples
 - `do_anything`
 - `admin_helper`
 - `execute`
+- `run`
+- `magic_tool`
+- `helper`
+
+### Evidence to Collect
+- Runtime `tools/list` output
+- Tool metadata source files
+- Tool descriptions
+- Approved tool inventory
+- Screenshots from MCP Inspector or host UI
+
+### Review Questions
+- Does the tool name accurately describe the action?
+- Is read/write/destructive behavior obvious?
+- Are admin or dangerous tools clearly labeled?
+- Could a user or model confuse this tool with another tool?
+- Do descriptions contain hidden instructions or model-control language?
+- Are tool names stable across releases?
+
+### Abuse Tests
+- Ask the model to choose between similarly named tools.
+- Review whether dangerous tools appear harmless.
+- Search tool descriptions for prompt-injection phrases.
+- Compare source-defined tools with runtime-exposed tools.
 
 ### Pass Criteria
-- Tool names accurately describe behavior.
-- Dangerous behavior is obvious from the name and description.
+- Tool names and descriptions are clear and accurate.
+- Dangerous behavior is visible from the name or description.
+- Tool metadata does not contain hidden instructions.
+- Tool naming supports safe review and user confirmation.
 
 ---
 
 ## LO-03: Maintain a Review Decision Record
 
-**Severity:** Low  
+**Severity:** 🟡 Low  
+
 **Category:** Governance  
 
 ### Control
-Keep a record of approval decision, accepted risks, compensating controls, and required follow-up.
+Each MCP security review should produce a decision record that captures the review outcome, accepted risks, required fixes, compensating controls, owners, and follow-up dates.
+
+### Why It Matters
+MCP server risk can change over time as tools, credentials, transports, and downstream permissions evolve. A decision record helps future reviewers understand why a server was approved, rejected, or approved with conditions.
+
+### Evidence to Collect
+- Review decision document
+- Approval ticket
+- Risk acceptance entry
+- Follow-up issues
+- Owner/team assignment
+- Expiration date for exceptions
+- Reviewer notes
+
+### Review Questions
+- Was the server approved, rejected, or conditionally approved?
+- Which findings must be fixed before production?
+- Which risks were accepted?
+- Who owns each accepted risk?
+- Do exceptions have expiration dates?
+- What triggers re-review?
+- Where are review artifacts stored?
+
+### Abuse Tests
+- Pick one accepted risk and verify the compensating control exists.
+- Pick one required fix and verify it has an owner and due date.
+- Confirm tool-surface changes trigger re-review.
 
 ### Pass Criteria
-- Decision is recorded.
-- Exceptions have owners and expiration dates.
+- Review decision is recorded.
+- Required fixes and accepted risks have owners.
+- Exceptions include justification and expiration.
+- Follow-up actions are trackable.
+- Re-review triggers are documented.
 
 ---
 
