@@ -48,7 +48,8 @@ For each control, record:
 
 # 3. Control Index
 
-## Critical
+# Critical Controls
+
 | ID | Control |
 |---|---|
 | CR-01 | Enforce server-side authorization |
@@ -57,8 +58,12 @@ For each control, record:
 | CR-04 | Treat tool/resource output as untrusted |
 | CR-05 | Prevent command injection |
 | CR-06 | Prevent SSRF and unsafe URL fetching |
+| CR-07 | Sandbox arbitrary code execution |
 
-## High
+---
+
+# High Controls
+
 | ID | Control |
 |---|---|
 | HI-01 | Validate tool arguments strictly |
@@ -70,8 +75,14 @@ For each control, record:
 | HI-07 | Prevent cross-server confusion |
 | HI-08 | Protect sensitive data in tool results |
 | HI-09 | Implement audit logging |
+| HI-10 | Require re-consent for dynamic tool registration |
+| HI-11 | Prevent DNS rebinding and unsafe browser-origin access |
+| HI-12 | Label untrusted resource/tool output |
 
-## Medium
+---
+
+# Medium Controls
+
 | ID | Control |
 |---|---|
 | ME-01 | Disable unused tools |
@@ -81,12 +92,18 @@ For each control, record:
 | ME-05 | Verify installation/consent security |
 | ME-06 | Enforce tenant boundaries |
 | ME-07 | Secure local stdio deployment |
+| ME-08 | Add MCP-specific security tests to CI |
+| ME-09 | Perform dynamic runtime MCP validation |
 
-## Low
+---
+
+# Low Controls
+
 | ID | Control |
 |---|---|
-| LO-01 | Use safe tool naming |
-| LO-02 | Maintain review decision record |
+| LO-01 | Document server threat model |
+| LO-02 | Use safe tool naming |
+| LO-03 | Maintain review decision record |
 
 ---
 
@@ -94,7 +111,7 @@ For each control, record:
 
 ## CR-01: Enforce Server-Side Authorization for Every Tool Call
 
-**Severity:** Critical  
+**Severity:** 🔴 Critical
 **Category:** Authentication and authorization  
 
 ### Control
@@ -130,7 +147,7 @@ The LLM can be manipulated through prompt injection, tool poisoning, malicious r
 
 ## CR-02: Use Least-Privilege Credentials
 
-**Severity:** Critical  
+**Severity:** 🔴 Critical 
 **Category:** Secrets and identity  
 
 ### Control
@@ -170,7 +187,7 @@ Credentials used by the MCP server must be scoped to the minimum permissions req
 
 ## CR-03: Prevent Destructive or Sensitive Actions Without Explicit Confirmation
 
-**Severity:** Critical  
+**Severity:** 🔴 Critical
 **Category:** Human-in-the-loop controls  
 
 ### Control
@@ -211,7 +228,7 @@ Tools that perform destructive, irreversible, sensitive, or externally visible a
 
 ## CR-04: Treat Tool and Resource Output as Untrusted Input
 
-**Severity:** Critical  
+**Severity:** 🔴 Critical
 **Category:** Prompt injection and tool poisoning  
 
 ### Control
@@ -250,7 +267,7 @@ Then check whether the model follows it.
 
 ## CR-05: Prevent Command Injection and Unsafe Process Execution
 
-**Severity:** Critical  
+**Severity:** 🔴 Critical
 **Category:** Runtime safety  
 
 ### Control
@@ -283,7 +300,7 @@ The MCP server must not pass user-controlled or model-controlled input to shell 
 
 ## CR-06: Prevent SSRF and Unsafe URL Fetching
 
-**Severity:** Critical  
+**Severity:** 🔴 Critical
 **Category:** Network security  
 
 ### Control
@@ -313,13 +330,22 @@ Tools that fetch URLs or connect to arbitrary hosts must enforce strict destinat
 - Internal networks and metadata services are blocked.
 - Redirects are revalidated.
 
+## CR-07: Sandbox arbitrary code execution
+
+- **Severity:** 🔴 Critical
+- **Description:** Tools like `exec_shell`, `run_python`, `eval` MUST run in a hardened sandbox (network-isolated, ephemeral FS, resource-limited) and MUST require Trust Tier T2+ approval with explicit sign-off.
+- **Risk:** LLM-driven RCE on host with full identity.
+- **Validation:** Inspect sandbox tech (gVisor, Firecracker, nsjail, ephemeral container); attempt escape; verify resource limits.
+- **Remediation:** Use battle-tested sandbox; deny by default; isolate per call; never share state between calls without explicit need.
+
+
 ---
 
 # 5. High-Severity Controls
 
 ## HI-01: Validate Tool Arguments Strictly
 
-**Severity:** High  
+**Severity:** 🟠 High
 **Category:** Input validation  
 
 ### Control
@@ -354,7 +380,7 @@ Every tool must validate inputs using a strict schema and reject unexpected fiel
 
 ## HI-02: Protect Tool Description and Schema Integrity
 
-**Severity:** High  
+**Severity:** 🟠 High
 **Category:** Tool poisoning  
 
 ### Control
@@ -394,7 +420,7 @@ Look for phrases like:
 
 ## HI-03: Isolate MCP Servers at Runtime
 
-**Severity:** High  
+**Severity:** 🟠 High
 **Category:** Sandboxing and isolation  
 
 ### Control
@@ -429,7 +455,7 @@ MCP servers should run with least OS privilege, limited filesystem access, restr
 
 ## HI-04: Secure HTTP/SSE and Streamable HTTP Transport
 
-**Severity:** High  
+**Severity:** 🟠 High
 **Category:** Transport security  
 
 ### Control
@@ -466,7 +492,7 @@ Remote MCP servers must enforce TLS, authentication, replay protection where app
 
 ## HI-05: Avoid Unsafe Token Passthrough
 
-**Severity:** High  
+**Severity:** 🟠 High
 **Category:** OAuth and identity  
 
 ### Control
@@ -494,7 +520,7 @@ Do not blindly pass user access tokens through the MCP server to downstream APIs
 
 ## HI-06: Use OAuth 2.1 with PKCE for HTTP-Based User Authorization
 
-**Severity:** High  
+**Severity:** 🟠 High
 **Category:** Authentication  
 
 ### Control
@@ -523,7 +549,7 @@ For HTTP-based MCP servers that support authorization, use OAuth 2.1 security pr
 
 ## HI-07: Prevent Cross-Server and Cross-Tool Confusion
 
-**Severity:** High  
+**Severity:** 🟠 High
 **Category:** Multi-server isolation  
 
 ### Control
@@ -556,7 +582,7 @@ The LLM may see tool descriptions and outputs from multiple servers in the same 
 
 ## HI-08: Protect Sensitive Data in Tool Results
 
-**Severity:** High  
+**Severity:** 🟠 High
 **Category:** Data protection  
 
 ### Control
@@ -585,13 +611,39 @@ Tool responses must minimize sensitive data returned to the model and user. Secr
 - Broad exports are restricted.
 - Results are filtered by permission and need.
 
+## HI-10 — Require Re-Consent for Dynamic Tool Registration
+
+**Severity:** 🟠 High
+- **Description:** If the server supports dynamic tool registration, the client/user MUST be re-prompted to consent before any new tool can be invoked.
+- **Risk:** Rug pull — a server adds a `delete_all_files` tool after initial approval.
+- **Validation:** Add a tool at runtime; verify client behavior (consent prompt) and server emits change notification.
+- **Remediation:** Implement `tools/list_changed` notifications; enforce client-side re-consent UX.
+
+
+## HI-11 — Prevent DNS Rebinding and Unsafe Browser-Origin Access
+
+- **Severity:** 🟠 High
+- **Description:** HTTP-based local MCP servers MUST validate `Origin` and reject unexpected hosts to prevent DNS-rebinding attacks from browser contexts.
+- **Risk:** A malicious web page can resolve a controlled domain to 127.0.0.1 and call local MCP tools as the user.
+- **Validation:** Send requests with unexpected `Origin` and `Host` headers; confirm rejection.
+- **Remediation:** Implement strict Origin allow-list; validate `Host` header; require a non-replayable token.
+
+
+## HI-12 — Label Untrusted Resource/Tool Output
+
+- **Severity:** 🟠 High (AI-amplified)
+- **Description:** MCP resources returned to the client MUST carry classification labels (e.g., source, trust level) so client prompts can constrain model behavior accordingly.
+- **Risk:** Untrusted resource content (a wiki page edited by an outsider) is treated as authoritative.
+- **Validation:** Inspect resource metadata; confirm origin + trust labels.
+- **Remediation:** Standardize resource metadata; document client expectations.
+
 ---
 
 # 6. Medium-Severity Controls
 
 ## ME-01: Disable Unused Tools, Resources, and Prompts
 
-**Severity:** Medium  
+**Severity:** 🟡 Medium
 **Category:** Attack surface reduction  
 
 ### Control
@@ -610,7 +662,7 @@ Only expose capabilities required for approved use cases.
 
 ## ME-02: Rate Limit Expensive or Sensitive Operations
 
-**Severity:** Medium  
+**Severity:** 🟡 Medium
 **Category:** Abuse prevention  
 
 ### Control
@@ -629,7 +681,7 @@ Tools must enforce rate limits, pagination, time windows, and result-size caps.
 
 ## ME-03: Sanitize Errors and Debug Output
 
-**Severity:** Medium  
+**Severity:** 🟡 Medium
 **Category:** Information disclosure  
 
 ### Control
@@ -648,7 +700,7 @@ Errors returned to the model/user must not expose secrets, stack traces, interna
 
 ## ME-04: Pin and Scan Dependencies
 
-**Severity:** Medium  
+**Severity:** 🟡 Medium
 **Category:** Supply chain security  
 
 ### Control
@@ -677,7 +729,7 @@ Dependencies must be pinned, scanned, and reviewed. Third-party MCP servers must
 
 ## ME-05: Verify Installation and Consent Security
 
-**Severity:** Medium  
+**Severity:** 🟡 Medium
 **Category:** Deployment security  
 
 ### Control
@@ -698,7 +750,7 @@ Users or teams must know what MCP server they are installing, what tools it expo
 
 ## ME-06: Enforce Tenant, Workspace, and Project Boundaries
 
-**Severity:** Medium  
+**Severity:** 🟡 Medium
 **Category:** Multi-tenant security  
 
 ### Control
@@ -718,7 +770,7 @@ MCP servers must enforce tenant/workspace/project boundaries consistently in eve
 
 ## ME-07: Secure Local stdio Deployment
 
-**Severity:** Medium  
+**Severity:** 🟡 Medium
 **Category:** Local execution security  
 
 ### Control
@@ -740,7 +792,7 @@ For local `stdio` MCP servers, restrict environment variables, filesystem access
 
 ## ME-08: Add Security Tests for MCP-Specific Abuse Cases
 
-**Severity:** Medium  
+**Severity:** 🟡 Medium
 **Category:** Testing  
 
 ### Control
@@ -750,6 +802,17 @@ The repository should include security tests for prompt injection, authorization
 - Tests exist for high-risk tools.
 - Tests run in CI.
 - Regression tests are added for findings.
+
+## ME-09 — Perform Dynamic Runtime MCP Validation
+
+Reviewers should dynamically test:
+- initialize
+- tools/list
+- prompts/list
+- resources/list
+
+Static analysis alone is insufficient.
+
 
 ---
 
