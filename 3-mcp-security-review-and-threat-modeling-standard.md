@@ -13,6 +13,7 @@
 9. [Security Decision Framework](#9-security-decision-framework)
 10. [Appendix A: Quick Decision Cheat Sheet](#10-appendix-a-quick-decision-cheat-sheet)
 11. [Appendix B: Glossary of Common Anti-Patterns](#11-appendix-b-glossary-of-common-anti-patterns)
+12. [Appendix C: Related Documents](#12-appendix-c-related-documents)
 
 
 ---
@@ -514,3 +515,24 @@ Use only after the full checklist is done; for first-pass triage of obvious bloc
 | **The Sampler Trojan** | Server uses `sampling` to invoke the client's model on its own prompts. | Server steers the model invisibly; potential exfil via model calls. |
 | **The Universal URL Fetcher** | A `fetch(url)` tool with no allow-list. | SSRF to cloud metadata, internal services, exfil targets. |
 | **The Eternal Token** | Long-lived service tokens never rotated. | Maximum breach blast radius; minimum forensics confidence. |
+
+---
+
+## 12. Appendix C: Related Documents
+
+| Document | Purpose |
+|---|---|
+| `4-mcp-server-security-review-checklist.md` | Detailed control-by-control MCP review checklist |
+| `script/mcp_first_pass_evidence_collector_v1_0_release.py` | First-pass automated evidence collection tool |
+| `script/MCP_Security_Smoke_Test_README.md` | Tool documentation and usage guidance |
+
+### Recommended Review Order
+
+```text
+1. Architecture Review
+2. Threat Modeling
+3. First-Pass Evidence Collection
+4. Dynamic Testing
+5. Checklist Validation
+6. Final Security Decision
+```

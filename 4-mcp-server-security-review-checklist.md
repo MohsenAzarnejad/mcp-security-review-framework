@@ -1,5 +1,62 @@
 # MCP Server Security Review Checklist
 
+
+## Control Summary
+
+| Severity | Count |
+|---|---:|
+| 🟣 Critical | 8 |
+| 🔴 High | 17 |
+| 🟠 Medium | 12 |
+| 🟡 Low | 1 |
+| **Total Controls** | **38** |
+
+---
+
+## Related Tooling
+
+This checklist is designed to be used together with the:
+
+### MCP First-Pass Evidence Collector v1.0
+
+Location in repository:
+
+```text
+script/mcp_first_pass_evidence_collector_v1_0_release.py
+```
+
+Supporting documentation:
+
+```text
+script/MCP_Security_Smoke_Test_README.md
+```
+
+Purpose:
+- Collect first-pass static security evidence
+- Enumerate MCP runtime metadata
+- Identify risky implementation patterns
+- Accelerate manual security reviews
+- Produce reviewer-friendly HTML/JSON reports
+
+Important:
+The tool is an evidence-collection and review-support utility. It does **not** replace:
+- threat modeling
+- manual authorization review
+- dynamic testing
+- business-logic review
+- runtime validation
+
+Recommended usage flow:
+
+```text
+1. Run First-Pass Evidence Collector
+2. Review generated HTML report
+3. Perform threat modeling
+4. Execute dynamic/runtime testing
+5. Complete manual checklist review
+6. Record final security decision
+```
+
 ---
 
 # Table of Contents
