@@ -345,5 +345,3 @@ The model considers:
 - Previous tool outputs
 
 Then it predicts **Calling this tool is the most likely useful next action.** So this process is **probabilistic** rather than **deterministic**.
-
----

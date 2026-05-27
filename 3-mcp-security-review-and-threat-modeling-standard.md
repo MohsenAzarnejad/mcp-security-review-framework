@@ -1,10 +1,5 @@
 # MCP Security Review & Threat Modeling Standard
 
-Version: 1.0  
-Audience: Security reviewers, application security engineers, platform teams, AI governance teams, and architects reviewing MCP servers.
-
----
-
 # Table of Contents
 
 1. [Core Security Principles](#1-core-security-principles)
@@ -48,7 +43,6 @@ Therefore:
 
 A perfectly hardened MCP server with broad administrator credentials is more dangerous than a moderately implemented MCP server with tightly scoped read-only credentials.
 
----
 
 ## 1.2 Security Review Philosophy
 
@@ -76,7 +70,6 @@ Human-in-the-loop (HITL) approval means a sensitive or destructive action requir
 
 HITL approval is one of the primary mitigations for dangerous tool chaining, prompt injection, and unintended autonomous actions.
 
----
 
 ## 1.3 Never Trust These Inputs
 
@@ -171,7 +164,6 @@ The recommended review process contains 8 phases.
 8. Final Recommendation
 ```
 
----
 
 ## Phase 1: Intake
 
@@ -189,7 +181,6 @@ The recommended review process contains 8 phases.
 ### Deliverable
 Intake page or review ticket (status = `Under Review`).
 
----
 
 ## Phase 2: Architecture Review
 
@@ -208,7 +199,6 @@ Intake page or review ticket (status = `Under Review`).
 ### Deliverable
 Architecture diagram and blast-radius analysis.
 
----
 
 ## Phase 3: Threat Modeling
 
@@ -228,7 +218,6 @@ The model calls send_email and leaks internal data.
 ### Deliverable
 Threat model document with abuse cases.
 
----
 
 ## Phase 4: Configuration Review
 
@@ -244,7 +233,6 @@ Threat model document with abuse cases.
 - least-exposed interfaces;
 - secure secret handling.
 
----
 
 ## Phase 5: Permission Review
 
@@ -258,7 +246,6 @@ Threat model document with abuse cases.
 - long-lived credentials;
 - unscoped service accounts.
 
----
 
 ## Phase 6: Dynamic Testing
 
@@ -271,7 +258,6 @@ Perform live testing against a non-prod instance:
 - **Resource exhaustion:** payload size, recursive structures, slow-loris, unbounded streaming.
 - **Logging tests:** verify expected events appear; verify no secrets are logged.
 
----
 
 ## Phase 7: Risk Scoring
 
@@ -285,7 +271,6 @@ Perform live testing against a non-prod instance:
 - Does this impact sensitive systems?
 - Can the issue chain with other tools?
 
----
 
 ## Phase 8: Final Recommendation
 
@@ -320,7 +305,6 @@ Ask:
 - What happens if a downstream system is compromised?
 - What systems become reachable after compromise?
 
----
 
 ## 5.2 Threat Categories
 
@@ -336,7 +320,6 @@ Ask:
 | Tool Poisoning | Malicious tool descriptions |
 | Cross-Server Abuse | Server-to-server exfiltration |
 
----
 
 ## 5.3 Abuse Story Template
 
@@ -368,7 +351,6 @@ Validate:
 - transport behavior
 - capability changes
 
----
 
 ## 6.2 Recommended Security Tests
 
@@ -422,9 +404,8 @@ We use a **Likelihood × Impact** matrix, with an AI-specific amplification fact
 - Finding enables chaining tools toward an outcome no single tool authorizes alone.
 - Finding affects a tool that combines untrusted-read with sensitive-write.
 
----
 
-## 7.4 Residual Risk
+## 7.5 Residual Risk
 
 | Condition | Result |
 |---|---|
@@ -487,7 +468,6 @@ The reviewer should state in the executive summary: *"This audit was performed a
 | Embedded credentials | Reject |
 | Broad unrestricted URL fetcher | Reject until fixed |
 
----
 
 ## Conditional Approval Conditions
 
@@ -499,6 +479,8 @@ The reviewer should state in the executive summary: *"This audit was performed a
 | Missing threat model | Under Review |
 | Weak dependency hygiene | Restricted rollout |
 
+
+---
 
 
 ## 10. Appendix A: Quick Decision Cheat Sheet
@@ -516,6 +498,7 @@ Use only after the full checklist is done; for first-pass triage of obvious bloc
 | Tool descriptions/schemas not pinned | High finding; require CI guard before approval. |
 | stdio binary unsigned / unverified provenance | High finding; require signing before approval for any C3+/T2+. |
 | Embedded credentials in repo / image | **Reject** + rotate immediately. |
+
 
 ---
 
