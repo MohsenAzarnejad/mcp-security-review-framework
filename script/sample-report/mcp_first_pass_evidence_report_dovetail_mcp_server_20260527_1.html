@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MCP First-Pass Evidence Collector Report</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    margin: 0;
+    background: #f6f7f9;
+    color: #1f2937;
+  }
+  header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #334155 100%);
+    color: white;
+    padding: 28px 40px;
+  }
+  main {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 28px 24px 60px;
+  }
+  h1, h2, h3 {
+    margin-top: 0;
+  }
+  .card, .finding {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 20px;
+    margin: 18px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    margin: 14px 0 24px;
+    border: 1px solid #e5e7eb;
+  }
+  th, td {
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 10px 12px;
+    vertical-align: top;
+  }
+  th {
+    background: #f3f4f6;
+    font-weight: 700;
+  }
+  code {
+    background: #f3f4f6;
+    padding: 2px 5px;
+    border-radius: 5px;
+  }
+  pre {
+    background: #111827;
+    color: #f9fafb;
+    padding: 16px;
+    border-radius: 10px;
+    overflow-x: auto;
+  }
+  .code-context {
+    margin-top: 10px;
+    margin-bottom: 0;
+    white-space: pre-wrap;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  .badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    background: #e5e7eb;
+    color: #374151;
+  }
+  .critical {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+  .high {
+    background: #ffedd5;
+    color: #9a3412;
+  }
+  .medium {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  .low {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+  .muted {
+    color: #6b7280;
+  }
+  .section-label {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: #eef2ff;
+    color: #3730a3;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+  details.inspector-pane {
+    margin-top: 14px;
+  }
+  details.inspector-pane summary {
+    cursor: pointer;
+    font-weight: 700;
+    margin: 8px 0 12px;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1 style="text-align: center;">MCP First-Pass Evidence Collector Report</h1>
+</header>
+<main>
+  <section class="card">
+    <h2>Metadata</h2>
+    <table>
+      <tbody>
+        <tr><th>MCP Server Name</th><td>Dovetail MCP Server</td></tr>
+        <tr><th>Owner Team</th><td>Platform</td></tr>
+        <tr><th>Source</th><td>dovetail-mcp-main</td></tr>
+        <tr><th>Version / Tag</th><td>1.0</td></tr>
+        <tr><th>Internal / Third-Party / Forked</th><td>Forked</td></tr>
+        <tr><th>Reviewer</th><td>Security Engineer1</td></tr>
+        <tr><th>Generated</th><td><code>2026-05-27T01:22:33Z</code></td></tr>
+        <tr><th>Files Scanned</th><td>13</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>Scan Statistics</h2>
+    <table>
+      <tbody><tr><th>Files scanned</th><td>13</td></tr><tr><th>Code files scanned</th><td>11</td></tr><tr><th>Test files scanned</th><td>0</td></tr><tr><th>Documentation files scanned</th><td>1</td></tr><tr><th>Lock/generated files scanned</th><td>1</td></tr><tr><th>Suppressed noisy findings</th><td>21</td></tr><tr><th>Deduplicated findings removed</th><td>3</td></tr><tr><th>Tools discovered</th><td>8</td></tr><tr><th>Resources discovered</th><td>0</td></tr><tr><th>Prompts discovered</th><td>0</td></tr><tr><th>Dockerfiles found</th><td>0</td></tr><tr><th>server.json files found</th><td>0</td></tr><tr><th>YAML/Kubernetes files checked</th><td>1</td></tr></tbody>
+    </table>
+
+    <details class="inspector-pane">
+      <summary>Show suppressed noisy signals</summary>
+      <table>
+        <thead><tr><th>Suppression Reason</th><th>Count</th></tr></thead>
+        <tbody><tr><td>runtime_signal_in_non_runtime_file</td><td>21</td></tr></tbody>
+      </table>
+    </details>
+  </section>
+
+<section class="card">
+    <span class="section-label">Inspector-style inventory</span>
+    <h2>Tools</h2>
+    <p class="muted">Static scan may show inferred tool groups. Use live mode for confirmed MCP tools and exact schemas.</p>
+    <table>
+      <thead><tr><th>Tool</th><th>Risk Words</th><th>Description</th></tr></thead>
+      <tbody><tr><td><code>get_project_insight</code></td><td>-</td><td>Get a specific insight by ID</td></tr><tr><td><code>get_insight_content</code></td><td>-</td><td>Get insight content in markdown format</td></tr><tr><td><code>list_project_insights</code></td><td>-</td><td>List insights for a specific project</td></tr><tr><td><code>get_data_content</code></td><td>-</td><td>Get data content in markdown format</td></tr><tr><td><code>get_project_data</code></td><td>-</td><td>Get specific project data by ID</td></tr><tr><td><code>list_project_data</code></td><td>-</td><td>List data for a specific project</td></tr><tr><td><code>get_dovetail_projects</code></td><td>all</td><td>Get all Dovetail projects</td></tr><tr><td><code>list_personal_project_insights</code></td><td>-</td><td>List insights for a specific user</td></tr></tbody>
+    </table>
+
+    <details class="inspector-pane">
+      <summary>Show tool schemas</summary>
+      <table>
+        <thead><tr><th>Tool</th><th>Input Schema</th></tr></thead>
+        <tbody><tr><td><code>get_project_insight</code></td><td><pre>{}</pre></td></tr><tr><td><code>get_insight_content</code></td><td><pre>{}</pre></td></tr><tr><td><code>list_project_insights</code></td><td><pre>{}</pre></td></tr><tr><td><code>get_data_content</code></td><td><pre>{}</pre></td></tr><tr><td><code>get_project_data</code></td><td><pre>{}</pre></td></tr><tr><td><code>list_project_data</code></td><td><pre>{}</pre></td></tr><tr><td><code>get_dovetail_projects</code></td><td><pre>{}</pre></td></tr><tr><td><code>list_personal_project_insights</code></td><td><pre>{}</pre></td></tr></tbody>
+      </table>
+    </details>
+  </section>
+
+  <section class="card">
+    <span class="section-label">Inspector-style inventory</span>
+    <h2>Resources</h2>
+    <table>
+      <thead><tr><th>URI</th><th>Name</th><th>MIME Type</th><th>Description</th></tr></thead>
+      <tbody><tr><td colspan="4"><em>No resources discovered. This is expected when only --repo static scanning is used.</em></td></tr></tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <span class="section-label">Inspector-style inventory</span>
+    <h2>Prompts</h2>
+    <table>
+      <thead><tr><th>Prompt</th><th>Arguments</th><th>Description</th></tr></thead>
+      <tbody><tr><td colspan="3"><em>No prompts discovered. This is expected when only --repo static scanning is used.</em></td></tr></tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <span class="section-label">Inspector-style debug data</span>
+    <h2>Raw MCP Metadata</h2>
+    <details class="inspector-pane">
+      <summary>Show initialize/tools/resources/prompts JSON</summary>
+      <pre>{
+  &quot;initialize&quot;: null,
+  &quot;prompts_list&quot;: null,
+  &quot;resources_list&quot;: null,
+  &quot;tools_list&quot;: null
+}</pre>
+    </details>
+  </section>
+
+  <section class="card">
+    <h2>Legend</h2>
+
+    <h3>Severity Levels</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Severity</th>
+          <th>Meaning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class='badge critical'>Critical</span></td>
+          <td>Strong indicator of a potentially exploitable security issue. Requires immediate manual review.</td>
+        </tr>
+        <tr>
+          <td><span class='badge high'>High</span></td>
+          <td>Important security concern or risky design pattern that should be reviewed before production use.</td>
+        </tr>
+        <tr>
+          <td><span class='badge medium'>Medium</span></td>
+          <td>Security weakness or missing hardening control. Usually not immediately exploitable alone.</td>
+        </tr>
+        <tr>
+          <td><span class='badge low'>Low</span></td>
+          <td>Governance, hygiene, or documentation issue.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top: 24px;">Finding Status</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Meaning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class='badge high'>NEEDS REVIEW</span></td>
+          <td>Evidence detected that requires human verification. This does NOT automatically mean the MCP server is vulnerable.</td>
+        </tr>
+        <tr>
+          <td><span class='badge critical'>FAIL</span></td>
+          <td>The collector found stronger evidence of a likely security issue or unsafe implementation. Usually requires immediate manual verification and remediation.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top: 24px;">Confidence</h3>
+    <table>
+      <thead><tr><th>Confidence</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>High</td><td>Strong static evidence or specific policy violation was detected.</td></tr>
+        <tr><td>Medium</td><td>Specific pattern detected, but exploitability depends on context.</td></tr>
+        <tr><td>Low</td><td>Weak heuristic signal. Useful for review, but likely to need triage.</td></tr>
+      </tbody>
+    </table>
+
+    <p class="muted">
+      Example:
+      "HTTP/SSE transport indicators require security review" does NOT automatically mean the MCP server is vulnerable.
+      It means the collector detected transport-related code and a reviewer should manually verify TLS, authentication,
+      session handling, CORS, and rate limiting.
+
+      By contrast, a FAIL finding means the collector found stronger evidence of an unsafe implementation pattern
+      (for example: hardcoded secrets, obvious command execution patterns, or highly suspicious credential handling).
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>Control Review Summary</h2>
+
+    <table>
+      <tbody>
+        <tr>
+          <th>Total Checklist Controls</th>
+          <td>34</td>
+          <th>Automated / Partial Controls</th>
+          <td>21</td>
+        </tr>
+        <tr>
+          <th>Controls With Findings</th>
+          <td>6</td>
+          <th>Failed / Needs-Review Controls</th>
+          <td>6</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="muted">
+      This table shows all checklist controls. "Manual" means the script cannot honestly verify the control without human review.
+      "No issue detected by automated checks" means the scanner did not find evidence of a problem for that control.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Control</th>
+          <th>Control Title</th>
+          <th>Severity</th>
+          <th>Coverage</th>
+          <th>Status</th>
+          <th>Findings</th>
+          <th>Confidence</th>
+          <th>Example Finding</th>
+        </tr>
+      </thead>
+      <tbody><tr><td><code>CR-01</code></td><td>Enforce server-side authorization</td><td><span class='badge critical'>Critical</span></td><td>Manual</td><td>Manual</td><td>0</td><td>-</td><td></td></tr><tr><td><code>CR-02</code></td><td>Use least-privilege credentials / detect exposed secrets</td><td><span class='badge critical'>Critical</span></td><td>Partial</td><td>No issue detected by automated checks</td><td>0</td><td>-</td><td></td></tr><tr><td><code>CR-03</code></td><td>Require confirmation for dangerous actions</td><td><span class='badge high'>Critical</span></td><td>Partial</td><td>NEEDS REVIEW</td><td>1</td><td>Medium</td><td>Risky tool capability: get_dovetail_projects</td></tr><tr><td><code>CR-04</code></td><td>Treat tool/resource output as untrusted</td><td><span class='badge critical'>Critical</span></td><td>Partial</td><td>No issue detected by automated checks</td><td>0</td><td>-</td><td></td></tr><tr><td><code>CR-05</code></td><td>Prevent command injection</td><td><span class='badge critical'>Critical</span></td><td>Automated</td><td>No issue detected by automated checks</td><td>0</td><td>-</td><td></td></tr><tr><td><code>CR-06</code></td><td>Prevent SSRF and unsafe URL fetching</td><td><span class='badge critical'>Critical</span></td><td>Automated</td><td>NEEDS REVIEW</td><td>1</td><td>Medium</td><td>Potential risky implementation: JavaScript fetch usage</td></tr><tr><td><code>CR-08</code></td><td>Protect sensitive approval and execution boundaries</td><td><span class='badge critical'>Critical</span></td><td>Manual</td><td>Manual</td><td>0</td><td>-</td><td></td></tr><tr><td><code>HI-01</code></td><td>Inventory all tools/resources/prompts</td><td><span class='badge high'>High</span></td><td>Automated</td><td>No issue detected by automated checks</td><td>0</td><td>-</td><td></td></tr><tr><td><code>HI-02</code></td><td>Validate tool arguments strictly</td><td><span class='badge high'>High</span></td><td>Automated</td><td>NEEDS REVIEW</td><td>8</td><td>Medium</td><td>Tool schema not found or empty: get_project_insight; Tool schema not found or empty: get_insight_content</td></tr><tr><td><code>HI-03</code></td><td>Protect tool metadata integrity</td><td><span class='badge high'>High</span></td><td>Partial</td><td>No issue detected by automated checks</td><td>0</td><td>-</td><td></td></tr><tr><td><code>HI-04</code></td><td>Isolate MCP servers at runtime</td><td><span class='badge high'>High</span></td><td>Manual</td><td>Manual</td><td>0</td><td>-</td><td></td></tr><tr><td><code>HI-05</code></td><td>Secure HTTP/SSE and streamable HTTP transport</td><td><span class='badge high'>High</span></td><td>Partial</td><td>No issue detected by automated checks</td><td>0</td><td>-</td><td></td></tr><tr><td><code>HI-06</code></td><td>Avoid unsafe token passthrough</td><td><span class='badge high'>High</span></td><td>Manual</td><td>Manual</td><td>0</td><td>-</td><td></td></tr><tr><td><code>HI-07</code></td><td>Use OAuth 2.1 with PKCE</td><td><span class='badge high'>High</span></td><td>Manual</td><td>Manual</td><td>0</td><td>-</td><td></td></tr><tr><td><code>HI-08</code></td><td>Prevent cross-server and cross-tool confusion</td><td><span class='badge high'>High</span></td><td>Manual</td><td>Manual</td><td>0</td><td>-</td><td></td></tr><tr><td><code>HI-09</code></td><td>Protect sensitive data in tool results</td><td><span class='badge high'>High</span></td><td>Partial</td><td>No issue detected by automated checks</td><td>0</td><td>-</td><td></td></tr><tr><td><code>HI-10</code></td><td>Implement audit logging</td><td><span class='badge high'>High</span></td><td>Partial</td><td>No issue detected by automated checks</td><td>0</td><td>-</td><td></td></tr><tr><td><code>HI-13</code></td><td>Restrict dynamic tool loading</td><td><span class='badge high'>High</span></td><td>Partial</td><td>No issue detected by automated checks</td><td>0</td><td>-</td><td></td></tr><tr><td><code>HI-14</code></td><td>Review MCP client trust boundaries</td><td><span class='badge high'>High</span></td><td>Manual</td><td>Manual</td><td>0</td><td>-</td><td></td></tr><tr><td><code>HI-15</code></td><td>Validate outbound network restrictions</td><td><span class='badge high'>High</span></td><td>Partial</td><td>No issue detected by automated checks</td><td>0</td><td>-</td><td></td></tr><tr><td><code>HI-16</code></td><td>Protect approval and consent flows</td><td><span class='badge high'>High</span></td><td>Manual</td><td>Manual</td><td>0</td><td>-</td><td></td></tr><tr><td><code>HI-17</code></td><td>Validate session and identity isolation</td><td><span class='badge high'>High</span></td><td>Manual</td><td>Manual</td><td>0</td><td>-</td><td></td></tr><tr><td><code>ME-01</code></td><td>Disable unused tools/resources/prompts</td><td><span class='badge medium'>Medium</span></td><td>Partial</td><td>No issue detected by automated checks</td><td>0</td><td>-</td><td></td></tr><tr><td><code>ME-02</code></td><td>Rate limit expensive or sensitive operations</td><td><span class='badge medium'>Medium</span></td><td>Partial</td><td>NEEDS REVIEW</td><td>1</td><td>Medium</td><td>Tool may need rate limits/result limits (4 similar locations)</td></tr><tr><td><code>ME-03</code></td><td>Sanitize errors and debug output</td><td><span class='badge medium'>Medium</span></td><td>Partial</td><td>NEEDS REVIEW</td><td>1</td><td>Low</td><td>Error or stack-trace handling needs sanitization review</td></tr><tr><td><code>ME-04</code></td><td>Pin and scan dependencies</td><td><span class='badge medium'>Medium</span></td><td>Automated</td><td>No issue detected by automated checks</td><td>0</td><td>-</td><td></td></tr><tr><td><code>ME-05</code></td><td>Verify installation and consent security</td><td><span class='badge medium'>Medium</span></td><td>Manual</td><td>Manual</td><td>0</td><td>-</td><td></td></tr><tr><td><code>ME-06</code></td><td>Enforce tenant/workspace/project boundaries</td><td><span class='badge medium'>Medium</span></td><td>Manual</td><td>Manual</td><td>0</td><td>-</td><td></td></tr><tr><td><code>ME-07</code></td><td>Secure local stdio deployment</td><td><span class='badge medium'>Medium</span></td><td>Partial</td><td>No issue detected by automated checks</td><td>0</td><td>-</td><td></td></tr><tr><td><code>ME-08</code></td><td>Add MCP abuse-case security tests</td><td><span class='badge medium'>Medium</span></td><td>Partial</td><td>No issue detected by automated checks</td><td>0</td><td>-</td><td></td></tr><tr><td><code>ME-10</code></td><td>Validate AI-generated content handling</td><td><span class='badge medium'>Medium</span></td><td>Manual</td><td>Manual</td><td>0</td><td>-</td><td></td></tr><tr><td><code>ME-11</code></td><td>Review MCP installation/update trust flow</td><td><span class='badge medium'>Medium</span></td><td>Manual</td><td>Manual</td><td>0</td><td>-</td><td></td></tr><tr><td><code>ME-12</code></td><td>Protect against excessive data exposure</td><td><span class='badge medium'>Medium</span></td><td>Partial</td><td>No issue detected by automated checks</td><td>0</td><td>-</td><td></td></tr><tr><td><code>LO-01</code></td><td>Provide safe tool naming</td><td><span class='badge low'>Low</span></td><td>Automated</td><td>NEEDS REVIEW</td><td>1</td><td>Medium</td><td>No SECURITY.md or security documentation found</td></tr></tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Findings</h2>
+    
+                <section class="finding">
+                  <h3><span class="badge critical">Critical</span>
+                      <code>CR-06</code> Potential risky implementation: JavaScript fetch usage</h3>
+                  <p><strong>Status:</strong> <span class="badge high">NEEDS REVIEW</span></p>
+                  <p><strong>Confidence:</strong> Medium</p>
+                  <p><strong>Location:</strong> <code>src\index.ts</code></p>
+                  <div><strong>Evidence:</strong><div class="evidence">Pattern found in src\index.ts<br><br>Code context:<br><pre class='code-context'>  L24: 
+&gt; L25:     const response = await fetch(url.toString(), {
+  L26:       headers: {</pre></div></div>
+                  <p><strong>Recommendation:</strong> Review whether untrusted model/user input can reach this code path. Add allowlists, validation, sandboxing, and tests.</p>
+                </section>
+                
+                <section class="finding">
+                  <h3><span class="badge high">High</span>
+                      <code>CR-03</code> Risky tool capability: get_dovetail_projects</h3>
+                  <p><strong>Status:</strong> <span class="badge high">NEEDS REVIEW</span></p>
+                  <p><strong>Confidence:</strong> Medium</p>
+                  <p><strong>Location:</strong> <code>src\index.ts</code></p>
+                  <div><strong>Evidence:</strong><div class="evidence">Risk words in tool name/description: all</div></div>
+                  <p><strong>Recommendation:</strong> Confirm this tool has authorization checks, confirmation controls, strict input validation, and audit logging.</p>
+                </section>
+                
+                <section class="finding">
+                  <h3><span class="badge high">High</span>
+                      <code>HI-02</code> Tool schema not found or empty: get_data_content</h3>
+                  <p><strong>Status:</strong> <span class="badge high">NEEDS REVIEW</span></p>
+                  <p><strong>Confidence:</strong> Medium</p>
+                  <p><strong>Location:</strong> <code>src\index.ts</code></p>
+                  <div><strong>Evidence:</strong><div class="evidence">No input schema detected.</div></div>
+                  <p><strong>Recommendation:</strong> Ensure the tool has a strict JSON schema with required fields, type constraints, enums, length/range limits, and additionalProperties=false where possible.</p>
+                </section>
+                
+                <section class="finding">
+                  <h3><span class="badge high">High</span>
+                      <code>HI-02</code> Tool schema not found or empty: get_dovetail_projects</h3>
+                  <p><strong>Status:</strong> <span class="badge high">NEEDS REVIEW</span></p>
+                  <p><strong>Confidence:</strong> Medium</p>
+                  <p><strong>Location:</strong> <code>src\index.ts</code></p>
+                  <div><strong>Evidence:</strong><div class="evidence">No input schema detected.</div></div>
+                  <p><strong>Recommendation:</strong> Ensure the tool has a strict JSON schema with required fields, type constraints, enums, length/range limits, and additionalProperties=false where possible.</p>
+                </section>
+                
+                <section class="finding">
+                  <h3><span class="badge high">High</span>
+                      <code>HI-02</code> Tool schema not found or empty: get_insight_content</h3>
+                  <p><strong>Status:</strong> <span class="badge high">NEEDS REVIEW</span></p>
+                  <p><strong>Confidence:</strong> Medium</p>
+                  <p><strong>Location:</strong> <code>src\index.ts</code></p>
+                  <div><strong>Evidence:</strong><div class="evidence">No input schema detected.</div></div>
+                  <p><strong>Recommendation:</strong> Ensure the tool has a strict JSON schema with required fields, type constraints, enums, length/range limits, and additionalProperties=false where possible.</p>
+                </section>
+                
+                <section class="finding">
+                  <h3><span class="badge high">High</span>
+                      <code>HI-02</code> Tool schema not found or empty: get_project_data</h3>
+                  <p><strong>Status:</strong> <span class="badge high">NEEDS REVIEW</span></p>
+                  <p><strong>Confidence:</strong> Medium</p>
+                  <p><strong>Location:</strong> <code>src\index.ts</code></p>
+                  <div><strong>Evidence:</strong><div class="evidence">No input schema detected.</div></div>
+                  <p><strong>Recommendation:</strong> Ensure the tool has a strict JSON schema with required fields, type constraints, enums, length/range limits, and additionalProperties=false where possible.</p>
+                </section>
+                
+                <section class="finding">
+                  <h3><span class="badge high">High</span>
+                      <code>HI-02</code> Tool schema not found or empty: get_project_insight</h3>
+                  <p><strong>Status:</strong> <span class="badge high">NEEDS REVIEW</span></p>
+                  <p><strong>Confidence:</strong> Medium</p>
+                  <p><strong>Location:</strong> <code>src\index.ts</code></p>
+                  <div><strong>Evidence:</strong><div class="evidence">No input schema detected.</div></div>
+                  <p><strong>Recommendation:</strong> Ensure the tool has a strict JSON schema with required fields, type constraints, enums, length/range limits, and additionalProperties=false where possible.</p>
+                </section>
+                
+                <section class="finding">
+                  <h3><span class="badge high">High</span>
+                      <code>HI-02</code> Tool schema not found or empty: list_personal_project_insights</h3>
+                  <p><strong>Status:</strong> <span class="badge high">NEEDS REVIEW</span></p>
+                  <p><strong>Confidence:</strong> Medium</p>
+                  <p><strong>Location:</strong> <code>src\index.ts</code></p>
+                  <div><strong>Evidence:</strong><div class="evidence">No input schema detected.</div></div>
+                  <p><strong>Recommendation:</strong> Ensure the tool has a strict JSON schema with required fields, type constraints, enums, length/range limits, and additionalProperties=false where possible.</p>
+                </section>
+                
+                <section class="finding">
+                  <h3><span class="badge high">High</span>
+                      <code>HI-02</code> Tool schema not found or empty: list_project_data</h3>
+                  <p><strong>Status:</strong> <span class="badge high">NEEDS REVIEW</span></p>
+                  <p><strong>Confidence:</strong> Medium</p>
+                  <p><strong>Location:</strong> <code>src\index.ts</code></p>
+                  <div><strong>Evidence:</strong><div class="evidence">No input schema detected.</div></div>
+                  <p><strong>Recommendation:</strong> Ensure the tool has a strict JSON schema with required fields, type constraints, enums, length/range limits, and additionalProperties=false where possible.</p>
+                </section>
+                
+                <section class="finding">
+                  <h3><span class="badge high">High</span>
+                      <code>HI-02</code> Tool schema not found or empty: list_project_insights</h3>
+                  <p><strong>Status:</strong> <span class="badge high">NEEDS REVIEW</span></p>
+                  <p><strong>Confidence:</strong> Medium</p>
+                  <p><strong>Location:</strong> <code>src\index.ts</code></p>
+                  <div><strong>Evidence:</strong><div class="evidence">No input schema detected.</div></div>
+                  <p><strong>Recommendation:</strong> Ensure the tool has a strict JSON schema with required fields, type constraints, enums, length/range limits, and additionalProperties=false where possible.</p>
+                </section>
+                
+                <section class="finding">
+                  <h3><span class="badge medium">Medium</span>
+                      <code>ME-02</code> Tool may need rate limits/result limits (4 similar locations)</h3>
+                  <p><strong>Status:</strong> <span class="badge high">NEEDS REVIEW</span></p>
+                  <p><strong>Confidence:</strong> Medium</p>
+                  
+                  <div><strong>Evidence:</strong><div class="evidence">Grouped 4 similar findings to reduce report noise.<br>Affected locations:<br>- src\index.ts</div></div>
+                  <p><strong>Recommendation:</strong> Confirm result limits, pagination, time windows, and rate limits are enforced.</p>
+                </section>
+                
+                <section class="finding">
+                  <h3><span class="badge medium">Medium</span>
+                      <code>ME-03</code> Error or stack-trace handling needs sanitization review</h3>
+                  <p><strong>Status:</strong> <span class="badge high">NEEDS REVIEW</span></p>
+                  <p><strong>Confidence:</strong> Low</p>
+                  <p><strong>Location:</strong> <code>src\index.ts</code></p>
+                  <div><strong>Evidence:</strong><div class="evidence">Error/stack related code found in src\index.ts</div></div>
+                  <p><strong>Recommendation:</strong> Confirm errors returned to the model/user do not expose secrets, stack traces, tokens, or internal URLs.</p>
+                </section>
+                
+                <section class="finding">
+                  <h3><span class="badge low">Low</span>
+                      <code>LO-01</code> No SECURITY.md or security documentation found</h3>
+                  <p><strong>Status:</strong> <span class="badge high">NEEDS REVIEW</span></p>
+                  <p><strong>Confidence:</strong> Medium</p>
+                  
+                  <div><strong>Evidence:</strong><div class="evidence">Could not find SECURITY.md, security.md, or docs/security.md.</div></div>
+                  <p><strong>Recommendation:</strong> Add a short threat model and security review notes for this MCP server.</p>
+                </section>
+                
+  </section>
+
+  
+  <section class="card">
+    <h2>Formal Control Audit</h2>
+    <p class="muted">Claude-style control results. Documentation/example files are excluded from hard-fail transport/TLS checks to reduce false positives.</p>
+    <table>
+      <tbody>
+        <tr><th>Total Formal Controls</th><td>29</td><th>Critical/High Fails</th><td>0</td></tr>
+        <tr><th>Fails</th><td>0</td><th>Needs Human Review</th><td>20</td></tr>
+        <tr><th>Pass</th><td>9</td><th>Not Applicable</th><td>0</td></tr>
+      </tbody>
+    </table>
+    <table>
+      <thead><tr><th>Control</th><th>Label</th><th>Severity</th><th>Status</th><th>Hard Gate</th><th>Evidence / Human Review Prompt</th></tr></thead>
+      <tbody><tr><td><code>MCP-AUTH-001</code></td><td>Strong authentication on all MCP endpoints</td><td><span class='badge critical'>critical</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>Requires runtime probing of the endpoint.</td></tr><tr><td><code>MCP-AUTHZ-001</code></td><td>Authorization enforced for every tool invocation</td><td><span class='badge critical'>critical</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>Requires runtime authorization testing per tool.</td></tr><tr><td><code>MCP-NET-005</code></td><td>SSRF protections on URL-accepting tools</td><td><span class='badge critical'>critical</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>Potential risky implementation: JavaScript fetch usage: NEEDS REVIEW</td></tr><tr><td><code>MCP-SEC-001-GL</code></td><td>External gitleaks secret scan</td><td><span class='badge critical'>critical</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>gitleaks is not installed; built-in regex secret scan was used instead.</td></tr><tr><td><code>MCP-TEN-001</code></td><td>Tenant identifier on every call and storage record</td><td><span class='badge critical'>critical</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>Requires code/data-flow review.</td></tr><tr><td><code>MCP-AI-001</code></td><td>Tool/resource outputs treated as untrusted data</td><td><span class='badge high'>high</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>Requires output-format review and prompt-injection testing.</td></tr><tr><td><code>MCP-AI-005</code></td><td>Cross-server and cross-tool confusion prevented</td><td><span class='badge high'>high</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>Requires multi-server/client behavior review.</td></tr><tr><td><code>MCP-AUTH-005</code></td><td>Unsafe token passthrough avoided</td><td><span class='badge high'>high</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>Requires runtime identity/token propagation review.</td></tr><tr><td><code>MCP-AUTHZ-003</code></td><td>No IDOR in tool parameters</td><td><span class='badge high'>high</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>Requires dynamic testing with cross-user/project IDs.</td></tr><tr><td><code>MCP-DATA-001</code></td><td>Data classification documented for every flow</td><td><span class='badge high'>high</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>Requires data-flow/threat-model documentation.</td></tr><tr><td><code>MCP-IO-001</code></td><td>Strict schema validation on tool inputs</td><td><span class='badge high'>high</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>Tool schema not found or empty: get_project_insight: NEEDS REVIEW; Tool schema not found or empty: get_insight_content: NEEDS REVIEW</td></tr><tr><td><code>MCP-IR-001</code></td><td>Kill switch / disable path documented</td><td><span class='badge high'>high</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>Requires runbook review.</td></tr><tr><td><code>MCP-LOG-001</code></td><td>Tool invocations are audit logged</td><td><span class='badge high'>high</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>Requires runtime log inspection.</td></tr><tr><td><code>MCP-NET-003</code></td><td>Origin / DNS rebinding protections</td><td><span class='badge high'>high</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>Requires dynamic HTTP Origin/Host testing.</td></tr><tr><td><code>MCP-SUP-002</code></td><td>SBOM produced and scanned</td><td><span class='badge high'>high</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>No committed SBOM artifact detected.</td></tr><tr><td><code>MCP-TOOL-003</code></td><td>Tool metadata integrity protected</td><td><span class='badge high'>high</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>Requires manifest/tool snapshot comparison or CI diff guard.</td></tr><tr><td><code>MCP-TOOL-005</code></td><td>Dangerous operations require user confirmation</td><td><span class='badge high'>high</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>Risky tool capability: get_dovetail_projects: NEEDS REVIEW</td></tr><tr><td><code>MCP-OPS-001</code></td><td>Owner and review documentation defined</td><td><span class='badge medium'>medium</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>No SECURITY.md or security documentation found: NEEDS REVIEW</td></tr><tr><td><code>MCP-OPS-001A</code></td><td>CODEOWNERS or catalog owner present</td><td><span class='badge medium'>medium</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>No CODEOWNERS or Backstage catalog-info.yaml detected. Confirm owner/on-call.</td></tr><tr><td><code>MCP-SUP-003</code></td><td>Optional external scanners available</td><td><span class='badge medium'>medium</span></td><td><span class='badge high'>needs_human_review</span></td><td>No</td><td>gitleaks=missing, syft=missing, grype=missing, trivy=missing</td></tr><tr><td><code>MCP-AUTH-002</code></td><td>No anonymous fallback / open mode</td><td><span class='badge critical'>critical</span></td><td><span class='badge low'>pass</span></td><td>No</td><td></td></tr><tr><td><code>MCP-IO-003</code></td><td>Injection-safe handling in downstream calls</td><td><span class='badge critical'>critical</span></td><td><span class='badge low'>pass</span></td><td>No</td><td></td></tr><tr><td><code>MCP-NET-001</code></td><td>TLS verification not disabled</td><td><span class='badge critical'>critical</span></td><td><span class='badge low'>pass</span></td><td>No</td><td></td></tr><tr><td><code>MCP-SEC-001</code></td><td>No secrets in code, manifests, or images</td><td><span class='badge critical'>critical</span></td><td><span class='badge low'>pass</span></td><td>No</td><td></td></tr><tr><td><code>MCP-EXEC-001</code></td><td>Runtime isolation and container hardening</td><td><span class='badge high'>high</span></td><td><span class='badge low'>pass</span></td><td>No</td><td></td></tr><tr><td><code>MCP-NET-002</code></td><td>HTTP/SSE transport securely exposed</td><td><span class='badge high'>high</span></td><td><span class='badge low'>pass</span></td><td>No</td><td></td></tr><tr><td><code>MCP-SEC-004</code></td><td>Secrets and sensitive data not returned/logged</td><td><span class='badge high'>high</span></td><td><span class='badge low'>pass</span></td><td>No</td><td></td></tr><tr><td><code>MCP-SUP-001</code></td><td>Dependencies pinned via lockfile</td><td><span class='badge high'>high</span></td><td><span class='badge low'>pass</span></td><td>No</td><td></td></tr><tr><td><code>MCP-TOOL-001</code></td><td>Tool inventory documented and minimal</td><td><span class='badge high'>high</span></td><td><span class='badge low'>pass</span></td><td>No</td><td></td></tr></tbody>
+    </table>
+  </section>
+
+
+  <section class="card">
+    <h2>Notes</h2>
+    <p>This is a first-pass evidence report. It supports, but does not replace, manual MCP security review.</p>
+    <p>Authorization, tenant isolation, credential scope, and confirmation UX usually require manual verification.</p>
+  </section>
+
+  <footer style="text-align: center; color: #6b7280; margin-top: 32px; font-size: 13px;">
+    MCP First-Pass Evidence Collector Version: <code>1.0</code>
+  </footer>
+</main>
+</body>
+</html>

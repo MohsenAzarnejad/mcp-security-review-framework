@@ -17,6 +17,15 @@
 
 ---
 
+## Pages
+
+- [MCP Foundations](1-mcp-foundations.md)
+- [MCP Architecture](2-mcp-architecture.md)
+- [MCP Security Review & Threat Modeling Standard](3-mcp-security-review-and-threat-modeling-standard.md)
+- [MCP Server Security Review Checklist](4-mcp-server-security-review-checklist.md)
+
+---
+
 ## Purpose & Scope
 
 This document defines the **mandatory security review methodology** for MCP (Model Context Protocol) servers before they are approved for internal use. It applies whenever an MCP server is:
@@ -34,14 +43,6 @@ MCP servers are treated as **privileged software with agentic reach**: they exte
 
 ---
 
-## Pages
-
-- [1 Mcp Foundations](1-mcp-foundations.md)
-- [MCP Architecture](2-mcp-architecture.md)
-- [MCP Security Review & Threat Modeling Standard](3-mcp-security-review-and-threat-modeling-standard.md)
-- [MCP Server Security Review Checklist](4-mcp-server-security-review-checklist.md)
-
----
 
 ## References
 

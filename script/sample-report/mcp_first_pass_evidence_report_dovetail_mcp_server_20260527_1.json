@@ -1,0 +1,1137 @@
+{
+  "control_coverage": [
+    {
+      "baseline_severity": "Critical",
+      "confidence": "-",
+      "control_id": "CR-01",
+      "coverage": "Manual",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "Manual",
+      "status_display": "Manual",
+      "title": "Enforce server-side authorization"
+    },
+    {
+      "baseline_severity": "Critical",
+      "confidence": "-",
+      "control_id": "CR-02",
+      "coverage": "Partial",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "No issue detected by automated checks",
+      "status_display": "No issue detected by automated checks",
+      "title": "Use least-privilege credentials / detect exposed secrets"
+    },
+    {
+      "baseline_severity": "Critical",
+      "confidence": "Medium",
+      "control_id": "CR-03",
+      "coverage": "Partial",
+      "example": "Risky tool capability: get_dovetail_projects",
+      "finding_count": 1,
+      "highest_finding_severity": "High",
+      "status": "NEEDS REVIEW",
+      "status_display": "NEEDS REVIEW",
+      "title": "Require confirmation for dangerous actions"
+    },
+    {
+      "baseline_severity": "Critical",
+      "confidence": "-",
+      "control_id": "CR-04",
+      "coverage": "Partial",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "No issue detected by automated checks",
+      "status_display": "No issue detected by automated checks",
+      "title": "Treat tool/resource output as untrusted"
+    },
+    {
+      "baseline_severity": "Critical",
+      "confidence": "-",
+      "control_id": "CR-05",
+      "coverage": "Automated",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "No issue detected by automated checks",
+      "status_display": "No issue detected by automated checks",
+      "title": "Prevent command injection"
+    },
+    {
+      "baseline_severity": "Critical",
+      "confidence": "Medium",
+      "control_id": "CR-06",
+      "coverage": "Automated",
+      "example": "Potential risky implementation: JavaScript fetch usage",
+      "finding_count": 1,
+      "highest_finding_severity": "Critical",
+      "status": "NEEDS REVIEW",
+      "status_display": "NEEDS REVIEW",
+      "title": "Prevent SSRF and unsafe URL fetching"
+    },
+    {
+      "baseline_severity": "Critical",
+      "confidence": "-",
+      "control_id": "CR-08",
+      "coverage": "Manual",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "Manual",
+      "status_display": "Manual",
+      "title": "Protect sensitive approval and execution boundaries"
+    },
+    {
+      "baseline_severity": "High",
+      "confidence": "-",
+      "control_id": "HI-01",
+      "coverage": "Automated",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "No issue detected by automated checks",
+      "status_display": "No issue detected by automated checks",
+      "title": "Inventory all tools/resources/prompts"
+    },
+    {
+      "baseline_severity": "High",
+      "confidence": "Medium",
+      "control_id": "HI-02",
+      "coverage": "Automated",
+      "example": "Tool schema not found or empty: get_project_insight; Tool schema not found or empty: get_insight_content",
+      "finding_count": 8,
+      "highest_finding_severity": "High",
+      "status": "NEEDS REVIEW",
+      "status_display": "NEEDS REVIEW",
+      "title": "Validate tool arguments strictly"
+    },
+    {
+      "baseline_severity": "High",
+      "confidence": "-",
+      "control_id": "HI-03",
+      "coverage": "Partial",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "No issue detected by automated checks",
+      "status_display": "No issue detected by automated checks",
+      "title": "Protect tool metadata integrity"
+    },
+    {
+      "baseline_severity": "High",
+      "confidence": "-",
+      "control_id": "HI-04",
+      "coverage": "Manual",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "Manual",
+      "status_display": "Manual",
+      "title": "Isolate MCP servers at runtime"
+    },
+    {
+      "baseline_severity": "High",
+      "confidence": "-",
+      "control_id": "HI-05",
+      "coverage": "Partial",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "No issue detected by automated checks",
+      "status_display": "No issue detected by automated checks",
+      "title": "Secure HTTP/SSE and streamable HTTP transport"
+    },
+    {
+      "baseline_severity": "High",
+      "confidence": "-",
+      "control_id": "HI-06",
+      "coverage": "Manual",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "Manual",
+      "status_display": "Manual",
+      "title": "Avoid unsafe token passthrough"
+    },
+    {
+      "baseline_severity": "High",
+      "confidence": "-",
+      "control_id": "HI-07",
+      "coverage": "Manual",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "Manual",
+      "status_display": "Manual",
+      "title": "Use OAuth 2.1 with PKCE"
+    },
+    {
+      "baseline_severity": "High",
+      "confidence": "-",
+      "control_id": "HI-08",
+      "coverage": "Manual",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "Manual",
+      "status_display": "Manual",
+      "title": "Prevent cross-server and cross-tool confusion"
+    },
+    {
+      "baseline_severity": "High",
+      "confidence": "-",
+      "control_id": "HI-09",
+      "coverage": "Partial",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "No issue detected by automated checks",
+      "status_display": "No issue detected by automated checks",
+      "title": "Protect sensitive data in tool results"
+    },
+    {
+      "baseline_severity": "High",
+      "confidence": "-",
+      "control_id": "HI-10",
+      "coverage": "Partial",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "No issue detected by automated checks",
+      "status_display": "No issue detected by automated checks",
+      "title": "Implement audit logging"
+    },
+    {
+      "baseline_severity": "High",
+      "confidence": "-",
+      "control_id": "HI-13",
+      "coverage": "Partial",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "No issue detected by automated checks",
+      "status_display": "No issue detected by automated checks",
+      "title": "Restrict dynamic tool loading"
+    },
+    {
+      "baseline_severity": "High",
+      "confidence": "-",
+      "control_id": "HI-14",
+      "coverage": "Manual",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "Manual",
+      "status_display": "Manual",
+      "title": "Review MCP client trust boundaries"
+    },
+    {
+      "baseline_severity": "High",
+      "confidence": "-",
+      "control_id": "HI-15",
+      "coverage": "Partial",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "No issue detected by automated checks",
+      "status_display": "No issue detected by automated checks",
+      "title": "Validate outbound network restrictions"
+    },
+    {
+      "baseline_severity": "High",
+      "confidence": "-",
+      "control_id": "HI-16",
+      "coverage": "Manual",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "Manual",
+      "status_display": "Manual",
+      "title": "Protect approval and consent flows"
+    },
+    {
+      "baseline_severity": "High",
+      "confidence": "-",
+      "control_id": "HI-17",
+      "coverage": "Manual",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "Manual",
+      "status_display": "Manual",
+      "title": "Validate session and identity isolation"
+    },
+    {
+      "baseline_severity": "Medium",
+      "confidence": "-",
+      "control_id": "ME-01",
+      "coverage": "Partial",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "No issue detected by automated checks",
+      "status_display": "No issue detected by automated checks",
+      "title": "Disable unused tools/resources/prompts"
+    },
+    {
+      "baseline_severity": "Medium",
+      "confidence": "Medium",
+      "control_id": "ME-02",
+      "coverage": "Partial",
+      "example": "Tool may need rate limits/result limits (4 similar locations)",
+      "finding_count": 1,
+      "highest_finding_severity": "Medium",
+      "status": "NEEDS REVIEW",
+      "status_display": "NEEDS REVIEW",
+      "title": "Rate limit expensive or sensitive operations"
+    },
+    {
+      "baseline_severity": "Medium",
+      "confidence": "Low",
+      "control_id": "ME-03",
+      "coverage": "Partial",
+      "example": "Error or stack-trace handling needs sanitization review",
+      "finding_count": 1,
+      "highest_finding_severity": "Medium",
+      "status": "NEEDS REVIEW",
+      "status_display": "NEEDS REVIEW",
+      "title": "Sanitize errors and debug output"
+    },
+    {
+      "baseline_severity": "Medium",
+      "confidence": "-",
+      "control_id": "ME-04",
+      "coverage": "Automated",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "No issue detected by automated checks",
+      "status_display": "No issue detected by automated checks",
+      "title": "Pin and scan dependencies"
+    },
+    {
+      "baseline_severity": "Medium",
+      "confidence": "-",
+      "control_id": "ME-05",
+      "coverage": "Manual",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "Manual",
+      "status_display": "Manual",
+      "title": "Verify installation and consent security"
+    },
+    {
+      "baseline_severity": "Medium",
+      "confidence": "-",
+      "control_id": "ME-06",
+      "coverage": "Manual",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "Manual",
+      "status_display": "Manual",
+      "title": "Enforce tenant/workspace/project boundaries"
+    },
+    {
+      "baseline_severity": "Medium",
+      "confidence": "-",
+      "control_id": "ME-07",
+      "coverage": "Partial",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "No issue detected by automated checks",
+      "status_display": "No issue detected by automated checks",
+      "title": "Secure local stdio deployment"
+    },
+    {
+      "baseline_severity": "Medium",
+      "confidence": "-",
+      "control_id": "ME-08",
+      "coverage": "Partial",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "No issue detected by automated checks",
+      "status_display": "No issue detected by automated checks",
+      "title": "Add MCP abuse-case security tests"
+    },
+    {
+      "baseline_severity": "Medium",
+      "confidence": "-",
+      "control_id": "ME-10",
+      "coverage": "Manual",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "Manual",
+      "status_display": "Manual",
+      "title": "Validate AI-generated content handling"
+    },
+    {
+      "baseline_severity": "Medium",
+      "confidence": "-",
+      "control_id": "ME-11",
+      "coverage": "Manual",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "Manual",
+      "status_display": "Manual",
+      "title": "Review MCP installation/update trust flow"
+    },
+    {
+      "baseline_severity": "Medium",
+      "confidence": "-",
+      "control_id": "ME-12",
+      "coverage": "Partial",
+      "example": "",
+      "finding_count": 0,
+      "highest_finding_severity": "-",
+      "status": "No issue detected by automated checks",
+      "status_display": "No issue detected by automated checks",
+      "title": "Protect against excessive data exposure"
+    },
+    {
+      "baseline_severity": "Low",
+      "confidence": "Medium",
+      "control_id": "LO-01",
+      "coverage": "Automated",
+      "example": "No SECURITY.md or security documentation found",
+      "finding_count": 1,
+      "highest_finding_severity": "Low",
+      "status": "NEEDS REVIEW",
+      "status_display": "NEEDS REVIEW",
+      "title": "Provide safe tool naming"
+    }
+  ],
+  "findings": [
+    {
+      "confidence": "Medium",
+      "control_id": "CR-06",
+      "evidence": "Pattern found in src\\index.ts\n\nCode context:\n```text\n  L24: \n> L25:     const response = await fetch(url.toString(), {\n  L26:       headers: {\n```",
+      "location": "src\\index.ts",
+      "recommendation": "Review whether untrusted model/user input can reach this code path. Add allowlists, validation, sandboxing, and tests.",
+      "severity": "Critical",
+      "status": "NEEDS REVIEW",
+      "title": "Potential risky implementation: JavaScript fetch usage"
+    },
+    {
+      "confidence": "Medium",
+      "control_id": "CR-03",
+      "evidence": "Risk words in tool name/description: all",
+      "location": "src\\index.ts",
+      "recommendation": "Confirm this tool has authorization checks, confirmation controls, strict input validation, and audit logging.",
+      "severity": "High",
+      "status": "NEEDS REVIEW",
+      "title": "Risky tool capability: get_dovetail_projects"
+    },
+    {
+      "confidence": "Medium",
+      "control_id": "HI-02",
+      "evidence": "No input schema detected.",
+      "location": "src\\index.ts",
+      "recommendation": "Ensure the tool has a strict JSON schema with required fields, type constraints, enums, length/range limits, and additionalProperties=false where possible.",
+      "severity": "High",
+      "status": "NEEDS REVIEW",
+      "title": "Tool schema not found or empty: get_data_content"
+    },
+    {
+      "confidence": "Medium",
+      "control_id": "HI-02",
+      "evidence": "No input schema detected.",
+      "location": "src\\index.ts",
+      "recommendation": "Ensure the tool has a strict JSON schema with required fields, type constraints, enums, length/range limits, and additionalProperties=false where possible.",
+      "severity": "High",
+      "status": "NEEDS REVIEW",
+      "title": "Tool schema not found or empty: get_dovetail_projects"
+    },
+    {
+      "confidence": "Medium",
+      "control_id": "HI-02",
+      "evidence": "No input schema detected.",
+      "location": "src\\index.ts",
+      "recommendation": "Ensure the tool has a strict JSON schema with required fields, type constraints, enums, length/range limits, and additionalProperties=false where possible.",
+      "severity": "High",
+      "status": "NEEDS REVIEW",
+      "title": "Tool schema not found or empty: get_insight_content"
+    },
+    {
+      "confidence": "Medium",
+      "control_id": "HI-02",
+      "evidence": "No input schema detected.",
+      "location": "src\\index.ts",
+      "recommendation": "Ensure the tool has a strict JSON schema with required fields, type constraints, enums, length/range limits, and additionalProperties=false where possible.",
+      "severity": "High",
+      "status": "NEEDS REVIEW",
+      "title": "Tool schema not found or empty: get_project_data"
+    },
+    {
+      "confidence": "Medium",
+      "control_id": "HI-02",
+      "evidence": "No input schema detected.",
+      "location": "src\\index.ts",
+      "recommendation": "Ensure the tool has a strict JSON schema with required fields, type constraints, enums, length/range limits, and additionalProperties=false where possible.",
+      "severity": "High",
+      "status": "NEEDS REVIEW",
+      "title": "Tool schema not found or empty: get_project_insight"
+    },
+    {
+      "confidence": "Medium",
+      "control_id": "HI-02",
+      "evidence": "No input schema detected.",
+      "location": "src\\index.ts",
+      "recommendation": "Ensure the tool has a strict JSON schema with required fields, type constraints, enums, length/range limits, and additionalProperties=false where possible.",
+      "severity": "High",
+      "status": "NEEDS REVIEW",
+      "title": "Tool schema not found or empty: list_personal_project_insights"
+    },
+    {
+      "confidence": "Medium",
+      "control_id": "HI-02",
+      "evidence": "No input schema detected.",
+      "location": "src\\index.ts",
+      "recommendation": "Ensure the tool has a strict JSON schema with required fields, type constraints, enums, length/range limits, and additionalProperties=false where possible.",
+      "severity": "High",
+      "status": "NEEDS REVIEW",
+      "title": "Tool schema not found or empty: list_project_data"
+    },
+    {
+      "confidence": "Medium",
+      "control_id": "HI-02",
+      "evidence": "No input schema detected.",
+      "location": "src\\index.ts",
+      "recommendation": "Ensure the tool has a strict JSON schema with required fields, type constraints, enums, length/range limits, and additionalProperties=false where possible.",
+      "severity": "High",
+      "status": "NEEDS REVIEW",
+      "title": "Tool schema not found or empty: list_project_insights"
+    },
+    {
+      "confidence": "Medium",
+      "control_id": "ME-02",
+      "evidence": "Grouped 4 similar findings to reduce report noise.\nAffected locations:\n- src\\index.ts",
+      "location": null,
+      "recommendation": "Confirm result limits, pagination, time windows, and rate limits are enforced.",
+      "severity": "Medium",
+      "status": "NEEDS REVIEW",
+      "title": "Tool may need rate limits/result limits (4 similar locations)"
+    },
+    {
+      "confidence": "Low",
+      "control_id": "ME-03",
+      "evidence": "Error/stack related code found in src\\index.ts",
+      "location": "src\\index.ts",
+      "recommendation": "Confirm errors returned to the model/user do not expose secrets, stack traces, tokens, or internal URLs.",
+      "severity": "Medium",
+      "status": "NEEDS REVIEW",
+      "title": "Error or stack-trace handling needs sanitization review"
+    },
+    {
+      "confidence": "Medium",
+      "control_id": "LO-01",
+      "evidence": "Could not find SECURITY.md, security.md, or docs/security.md.",
+      "location": null,
+      "recommendation": "Add a short threat model and security review notes for this MCP server.",
+      "severity": "Low",
+      "status": "NEEDS REVIEW",
+      "title": "No SECURITY.md or security documentation found"
+    }
+  ],
+  "formal_audit": {
+    "control_results": [
+      {
+        "control_id": "MCP-AUTH-001",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [
+          "Requires runtime probing of the endpoint."
+        ],
+        "key_findings": [],
+        "label": "Strong authentication on all MCP endpoints",
+        "recommended_compensating_controls": [],
+        "severity": "critical",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-AUTHZ-001",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [
+          "Requires runtime authorization testing per tool."
+        ],
+        "key_findings": [],
+        "label": "Authorization enforced for every tool invocation",
+        "recommended_compensating_controls": [],
+        "severity": "critical",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-NET-005",
+        "evidence_refs": [
+          {
+            "lines": "",
+            "path": "src\\index.ts",
+            "snippet": "Pattern found in src\\index.ts  Code context: ```text   L24:  > L25:     const response = await fetch(url.toString(), {   L26:       headers: { ```"
+          }
+        ],
+        "hard_gate_triggered": false,
+        "human_review_questions": [],
+        "key_findings": [
+          "Potential risky implementation: JavaScript fetch usage: NEEDS REVIEW"
+        ],
+        "label": "SSRF protections on URL-accepting tools",
+        "recommended_compensating_controls": [
+          "Review whether untrusted model/user input can reach this code path. Add allowlists, validation, sandboxing, and tests."
+        ],
+        "severity": "critical",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-SEC-001-GL",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [
+          "gitleaks is not installed; built-in regex secret scan was used instead."
+        ],
+        "key_findings": [],
+        "label": "External gitleaks secret scan",
+        "recommended_compensating_controls": [],
+        "severity": "critical",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-TEN-001",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [
+          "Requires code/data-flow review."
+        ],
+        "key_findings": [],
+        "label": "Tenant identifier on every call and storage record",
+        "recommended_compensating_controls": [],
+        "severity": "critical",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-AI-001",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [
+          "Requires output-format review and prompt-injection testing."
+        ],
+        "key_findings": [],
+        "label": "Tool/resource outputs treated as untrusted data",
+        "recommended_compensating_controls": [],
+        "severity": "high",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-AI-005",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [
+          "Requires multi-server/client behavior review."
+        ],
+        "key_findings": [],
+        "label": "Cross-server and cross-tool confusion prevented",
+        "recommended_compensating_controls": [],
+        "severity": "high",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-AUTH-005",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [
+          "Requires runtime identity/token propagation review."
+        ],
+        "key_findings": [],
+        "label": "Unsafe token passthrough avoided",
+        "recommended_compensating_controls": [],
+        "severity": "high",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-AUTHZ-003",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [
+          "Requires dynamic testing with cross-user/project IDs."
+        ],
+        "key_findings": [],
+        "label": "No IDOR in tool parameters",
+        "recommended_compensating_controls": [],
+        "severity": "high",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-DATA-001",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [
+          "Requires data-flow/threat-model documentation."
+        ],
+        "key_findings": [],
+        "label": "Data classification documented for every flow",
+        "recommended_compensating_controls": [],
+        "severity": "high",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-IO-001",
+        "evidence_refs": [
+          {
+            "lines": "",
+            "path": "src\\index.ts",
+            "snippet": "No input schema detected."
+          },
+          {
+            "lines": "",
+            "path": "src\\index.ts",
+            "snippet": "No input schema detected."
+          },
+          {
+            "lines": "",
+            "path": "src\\index.ts",
+            "snippet": "No input schema detected."
+          },
+          {
+            "lines": "",
+            "path": "src\\index.ts",
+            "snippet": "No input schema detected."
+          },
+          {
+            "lines": "",
+            "path": "src\\index.ts",
+            "snippet": "No input schema detected."
+          },
+          {
+            "lines": "",
+            "path": "src\\index.ts",
+            "snippet": "No input schema detected."
+          },
+          {
+            "lines": "",
+            "path": "src\\index.ts",
+            "snippet": "No input schema detected."
+          },
+          {
+            "lines": "",
+            "path": "src\\index.ts",
+            "snippet": "No input schema detected."
+          }
+        ],
+        "hard_gate_triggered": false,
+        "human_review_questions": [],
+        "key_findings": [
+          "Tool schema not found or empty: get_project_insight: NEEDS REVIEW",
+          "Tool schema not found or empty: get_insight_content: NEEDS REVIEW",
+          "Tool schema not found or empty: list_project_insights: NEEDS REVIEW",
+          "Tool schema not found or empty: get_data_content: NEEDS REVIEW",
+          "Tool schema not found or empty: get_project_data: NEEDS REVIEW",
+          "Tool schema not found or empty: list_project_data: NEEDS REVIEW",
+          "Tool schema not found or empty: get_dovetail_projects: NEEDS REVIEW",
+          "Tool schema not found or empty: list_personal_project_insights: NEEDS REVIEW"
+        ],
+        "label": "Strict schema validation on tool inputs",
+        "recommended_compensating_controls": [
+          "Ensure the tool has a strict JSON schema with required fields, type constraints, enums, length/range limits, and additionalProperties=false where possible."
+        ],
+        "severity": "high",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-IR-001",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [
+          "Requires runbook review."
+        ],
+        "key_findings": [],
+        "label": "Kill switch / disable path documented",
+        "recommended_compensating_controls": [],
+        "severity": "high",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-LOG-001",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [
+          "Requires runtime log inspection."
+        ],
+        "key_findings": [],
+        "label": "Tool invocations are audit logged",
+        "recommended_compensating_controls": [],
+        "severity": "high",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-NET-003",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [
+          "Requires dynamic HTTP Origin/Host testing."
+        ],
+        "key_findings": [],
+        "label": "Origin / DNS rebinding protections",
+        "recommended_compensating_controls": [],
+        "severity": "high",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-SUP-002",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [],
+        "key_findings": [
+          "No committed SBOM artifact detected."
+        ],
+        "label": "SBOM produced and scanned",
+        "recommended_compensating_controls": [
+          "Generate SBOM in CI using syft/cyclonedx and scan using grype/trivy."
+        ],
+        "severity": "high",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-TOOL-003",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [
+          "Requires manifest/tool snapshot comparison or CI diff guard."
+        ],
+        "key_findings": [],
+        "label": "Tool metadata integrity protected",
+        "recommended_compensating_controls": [],
+        "severity": "high",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-TOOL-005",
+        "evidence_refs": [
+          {
+            "lines": "",
+            "path": "src\\index.ts",
+            "snippet": "Risk words in tool name/description: all"
+          }
+        ],
+        "hard_gate_triggered": false,
+        "human_review_questions": [],
+        "key_findings": [
+          "Risky tool capability: get_dovetail_projects: NEEDS REVIEW"
+        ],
+        "label": "Dangerous operations require user confirmation",
+        "recommended_compensating_controls": [
+          "Confirm this tool has authorization checks, confirmation controls, strict input validation, and audit logging."
+        ],
+        "severity": "high",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-OPS-001",
+        "evidence_refs": [
+          {
+            "lines": "",
+            "path": "",
+            "snippet": "Could not find SECURITY.md, security.md, or docs/security.md."
+          }
+        ],
+        "hard_gate_triggered": false,
+        "human_review_questions": [],
+        "key_findings": [
+          "No SECURITY.md or security documentation found: NEEDS REVIEW"
+        ],
+        "label": "Owner and review documentation defined",
+        "recommended_compensating_controls": [
+          "Add a short threat model and security review notes for this MCP server."
+        ],
+        "severity": "medium",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-OPS-001A",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [
+          "No CODEOWNERS or Backstage catalog-info.yaml detected. Confirm owner/on-call."
+        ],
+        "key_findings": [],
+        "label": "CODEOWNERS or catalog owner present",
+        "recommended_compensating_controls": [],
+        "severity": "medium",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-SUP-003",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [
+          "No optional scanners detected locally. Consider gitleaks, syft, grype, and trivy in CI."
+        ],
+        "key_findings": [
+          "gitleaks=missing, syft=missing, grype=missing, trivy=missing"
+        ],
+        "label": "Optional external scanners available",
+        "recommended_compensating_controls": [],
+        "severity": "medium",
+        "status": "needs_human_review"
+      },
+      {
+        "control_id": "MCP-AUTH-002",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [],
+        "key_findings": [],
+        "label": "No anonymous fallback / open mode",
+        "recommended_compensating_controls": [],
+        "severity": "critical",
+        "status": "pass"
+      },
+      {
+        "control_id": "MCP-IO-003",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [],
+        "key_findings": [],
+        "label": "Injection-safe handling in downstream calls",
+        "recommended_compensating_controls": [],
+        "severity": "critical",
+        "status": "pass"
+      },
+      {
+        "control_id": "MCP-NET-001",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [],
+        "key_findings": [],
+        "label": "TLS verification not disabled",
+        "recommended_compensating_controls": [],
+        "severity": "critical",
+        "status": "pass"
+      },
+      {
+        "control_id": "MCP-SEC-001",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [],
+        "key_findings": [],
+        "label": "No secrets in code, manifests, or images",
+        "recommended_compensating_controls": [],
+        "severity": "critical",
+        "status": "pass"
+      },
+      {
+        "control_id": "MCP-EXEC-001",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [],
+        "key_findings": [],
+        "label": "Runtime isolation and container hardening",
+        "recommended_compensating_controls": [],
+        "severity": "high",
+        "status": "pass"
+      },
+      {
+        "control_id": "MCP-NET-002",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [],
+        "key_findings": [],
+        "label": "HTTP/SSE transport securely exposed",
+        "recommended_compensating_controls": [],
+        "severity": "high",
+        "status": "pass"
+      },
+      {
+        "control_id": "MCP-SEC-004",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [],
+        "key_findings": [],
+        "label": "Secrets and sensitive data not returned/logged",
+        "recommended_compensating_controls": [],
+        "severity": "high",
+        "status": "pass"
+      },
+      {
+        "control_id": "MCP-SUP-001",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [],
+        "key_findings": [],
+        "label": "Dependencies pinned via lockfile",
+        "recommended_compensating_controls": [],
+        "severity": "high",
+        "status": "pass"
+      },
+      {
+        "control_id": "MCP-TOOL-001",
+        "evidence_refs": [],
+        "hard_gate_triggered": false,
+        "human_review_questions": [],
+        "key_findings": [],
+        "label": "Tool inventory documented and minimal",
+        "recommended_compensating_controls": [],
+        "severity": "high",
+        "status": "pass"
+      }
+    ],
+    "summary": {
+      "by_severity": {
+        "critical": 9,
+        "high": 17,
+        "low": 0,
+        "medium": 3
+      },
+      "by_status": {
+        "fail": 0,
+        "needs_human_review": 20,
+        "not_applicable": 0,
+        "pass": 9
+      },
+      "fails_critical_high": [],
+      "hard_gates_triggered": [],
+      "total": 29
+    }
+  },
+  "generated_at": "2026-05-27T01:22:33Z",
+  "metadata": {
+    "review_metadata": {
+      "mcp_server_name": "Dovetail MCP Server",
+      "owner_team": "Platform",
+      "repo_version": "1.0",
+      "repository": "dovetail-mcp-main",
+      "reviewer": "Security Engineer1",
+      "server_type": "Forked"
+    },
+    "started_at": "2026-05-27T01:22:33Z",
+    "static_scan": {
+      "dependency_files": [
+        "package.json",
+        "yarn.lock"
+      ],
+      "files_scanned": 13,
+      "policy_checks": {
+        "compose_files_found": [],
+        "dockerfiles_found": [],
+        "server_json_files_found": [],
+        "yaml_files_checked": 1
+      },
+      "repo_name": "dovetail-mcp-main",
+      "scan_statistics": {
+        "code_files_scanned": 11,
+        "deduplicated_findings_removed": 3,
+        "docs_files_scanned": 1,
+        "lock_or_generated_files_scanned": 1,
+        "test_files_scanned": 0
+      },
+      "suppressed_findings": {
+        "runtime_signal_in_non_runtime_file": 21
+      }
+    },
+    "version": "1.0"
+  },
+  "prompts": [],
+  "resources": [],
+  "summary": {
+    "confidence_counts": {
+      "High": 0,
+      "Low": 1,
+      "Medium": 12
+    },
+    "finding_count": 13,
+    "prompt_count": 0,
+    "resource_count": 0,
+    "severity_counts": {
+      "Critical": 1,
+      "High": 9,
+      "Low": 1,
+      "Medium": 2
+    },
+    "status_counts": {
+      "NEEDS REVIEW": 13
+    },
+    "tool_count": 8
+  },
+  "tool": "mcp-first-pass-evidence-collector",
+  "tools": [
+    {
+      "description": "Get a specific insight by ID",
+      "input_schema": {},
+      "name": "get_project_insight",
+      "raw": {
+        "location": "src\\index.ts",
+        "source": "static-js-server.tool"
+      }
+    },
+    {
+      "description": "Get insight content in markdown format",
+      "input_schema": {},
+      "name": "get_insight_content",
+      "raw": {
+        "location": "src\\index.ts",
+        "source": "static-js-server.tool"
+      }
+    },
+    {
+      "description": "List insights for a specific project",
+      "input_schema": {},
+      "name": "list_project_insights",
+      "raw": {
+        "location": "src\\index.ts",
+        "source": "static-js-server.tool"
+      }
+    },
+    {
+      "description": "Get data content in markdown format",
+      "input_schema": {},
+      "name": "get_data_content",
+      "raw": {
+        "location": "src\\index.ts",
+        "source": "static-js-server.tool"
+      }
+    },
+    {
+      "description": "Get specific project data by ID",
+      "input_schema": {},
+      "name": "get_project_data",
+      "raw": {
+        "location": "src\\index.ts",
+        "source": "static-js-server.tool"
+      }
+    },
+    {
+      "description": "List data for a specific project",
+      "input_schema": {},
+      "name": "list_project_data",
+      "raw": {
+        "location": "src\\index.ts",
+        "source": "static-js-server.tool"
+      }
+    },
+    {
+      "description": "Get all Dovetail projects",
+      "input_schema": {},
+      "name": "get_dovetail_projects",
+      "raw": {
+        "location": "src\\index.ts",
+        "source": "static-js-server.tool"
+      }
+    },
+    {
+      "description": "List insights for a specific user",
+      "input_schema": {},
+      "name": "list_personal_project_insights",
+      "raw": {
+        "location": "src\\index.ts",
+        "source": "static-js-server.tool"
+      }
+    }
+  ],
+  "version": "1.0"
+}
