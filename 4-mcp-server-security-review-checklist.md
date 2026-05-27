@@ -14,7 +14,7 @@
 
 ---
 
-# ✅ 1. How to Use This Checklist
+# 1. How to Use This Checklist
 
 Use this document when reviewing any MCP server, including:
 
@@ -34,7 +34,7 @@ For each control, record:
 
 ---
 
-# 2. 🚨 Severity Definitions
+# 🚨 Severity Definitions
 
 | Severity | Meaning |
 |---|---|

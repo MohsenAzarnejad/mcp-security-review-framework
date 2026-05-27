@@ -17,7 +17,7 @@
 
 ---
 
-## 🎯 Purpose & Scope
+## Purpose & Scope
 
 This document defines the **mandatory security review methodology** for MCP (Model Context Protocol) servers before they are approved for internal use. It applies whenever an MCP server is:
 
@@ -58,4 +58,3 @@ The checklist is based on the following public guidance:
 
 7. OWASP MCP Tool Poisoning  
    https://owasp.org/www-community/attacks/MCP_Tool_Poisoning
-   
