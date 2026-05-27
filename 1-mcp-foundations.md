@@ -6,6 +6,10 @@ MCP provides a standardized way for AI applications to connect with external sys
 
 <img src="./images/mcp-architecture.png" width="800">
 
+
+---
+
+
 ## What Can MCP Do?
 
 MCP enables AI applications to go beyond simple chat interactions by securely connecting them to external systems, tools, and workflows.
@@ -23,6 +27,10 @@ With MCP, AI tools can:
 - Share context between different AI applications and services  
 
 In practice, MCP acts as a standardized bridge between AI models and the systems they need to interact with.
+
+
+---
+
 
 ## Advantages of MCP
 
