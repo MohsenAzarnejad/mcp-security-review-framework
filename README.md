@@ -4,8 +4,8 @@
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-blue.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![Status](https://img.shields.io/badge/Status-Active-brightgreen.svg)]()
-[![Controls](https://img.shields.io/badge/Controls-70%2B-informational.svg)]()
-[![Domains](https://img.shields.io/badge/Domains-16-informational.svg)]()
+[![Controls](https://img.shields.io/badge/Controls-38-informational.svg)]()
+[![Workflow](https://img.shields.io/badge/Workflow-6%20Phases-informational.svg)]()
 
 ---
 
@@ -23,6 +23,36 @@
 - [MCP Architecture](2-mcp-architecture.md)
 - [MCP Security Review & Threat Modeling Standard](3-mcp-security-review-and-threat-modeling-standard.md)
 - [MCP Server Security Review Checklist](4-mcp-server-security-review-checklist.md)
+- [MCP First-Pass Evidence Collector](script/README.md)
+
+---
+
+## Review Workflow
+
+This framework uses a six-phase MCP security review workflow:
+
+```text
+1. Architecture Review
+2. Threat Modeling
+3. Security Control Validation
+4. Dynamic Testing
+5. Risk Assessment
+6. Final Approval Decision
+```
+
+Architecture review and threat modeling identify what can go wrong. Security control validation then verifies whether the required mitigations, configurations, permissions, logging, schemas, and deployment controls are actually implemented.
+
+---
+
+## Tooling
+
+This repository includes a first-pass evidence collector in the `script/` folder:
+
+```text
+script/mcp_first_pass_evidence_collector_v1_0.py
+```
+
+The tool helps collect static and runtime evidence for review, but it does not replace manual threat modeling, authorization review, dynamic testing, or final risk approval.
 
 ---
 
@@ -68,3 +98,4 @@ The checklist is based on the following public guidance:
 
 7. OWASP MCP Tool Poisoning  
    https://owasp.org/www-community/attacks/MCP_Tool_Poisoning
+   

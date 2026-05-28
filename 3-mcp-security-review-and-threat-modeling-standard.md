@@ -152,150 +152,264 @@ Examples:
 
 # 4. End-to-End Review Workflow
 
-The recommended review process contains 8 phases.
+The recommended MCP security review process contains six phases.
 
 ```text
-1. Intake
-2. Architecture Review
-3. Threat Modeling
-4. Configuration Review
-5. Permission Review
-6. Dynamic Testing
-7. Risk Scoring
-8. Final Recommendation
+1. Architecture Review
+2. Threat Modeling
+3. Security Control Validation
+4. Dynamic Testing
+5. Risk Assessment
+6. Final Approval Decision
 ```
 
+This structure intentionally separates **threat identification** from **control validation**.
 
-## Phase 1: Intake
+- Architecture Review answers: *What exists, what is connected, and where are the trust boundaries?*
+- Threat Modeling answers: *What can go wrong and how could the system be abused?*
+- Security Control Validation answers: *Are the required mitigations actually implemented and evidenced?*
+- Dynamic Testing answers: *Does the runtime behavior match the design and control expectations?*
+- Risk Assessment answers: *What residual risk remains after controls are applied?*
+- Final Approval Decision answers: *Can this MCP server be onboarded, restricted, piloted, or rejected?*
 
-**Reviewer collects:**
+Security control validation is related to threat modeling, but operationally it is treated as a separate phase because it verifies evidence and implementation rather than identifying threats.
 
-- Server name, owner, sponsor team, business justification.
-- Source (vendor / OSS repo / internal build) and version/commit hash.
-- Transport (stdio / SSE / Streamable HTTP / WebSocket).
-- Hosting model (on user endpoint / internal K8s / vendor SaaS).
-- Data classifications the server will touch (Public / Internal / Confidential / Restricted).
-- Identity model (service account / per-user OAuth / personal access token).
-- Tool inventory (name + description + side-effect summary).
-- Expected user population (single team / org-wide).
+
+## Phase 1: Architecture Review
+
+**Reviewer collects and validates:**
+
+- Server name, owner, sponsor team, and business justification.
+- Source: vendor, OSS repo, internal build, fork, version, or commit hash.
+- Transport: stdio, SSE, Streamable HTTP, WebSocket, or other.
+- Hosting model: user endpoint, internal Kubernetes, shared service, or vendor SaaS.
+- MCP client/host that will use the server.
+- Downstream systems, APIs, databases, SaaS platforms, or infrastructure.
+- Data classifications the server will touch.
+- Identity model: service account, per-user OAuth, personal access token, API key, or workload identity.
+- Tool inventory: name, description, read/write/admin/export classification, and side-effect summary.
+- Resource and prompt inventory, if exposed.
+- Expected user population: individual, team, org-wide, external, or automated agent.
+- Whether the server will be used with other MCP servers in the same host/client.
+
+### Architecture Review Questions
+
+- What systems can the MCP server reach?
+- What credentials does it hold or inherit?
+- What data can it read?
+- What can it modify?
+- What trust boundaries does it cross?
+- What happens if the MCP server is compromised?
+- What happens if returned tool output contains malicious instructions?
+- What is the worst-case blast radius?
 
 ### Deliverable
-Intake page or review ticket (status = `Under Review`).
+
+Architecture summary, tool inventory, trust-boundary notes, and initial blast-radius assessment.
 
 
-## Phase 2: Architecture Review
+## Phase 2: Threat Modeling
 
-- Diagram trust boundaries (client ↔ server ↔ downstream).
-- Identify where credentials live and what scope they hold.
-- Identify all egress paths (DNS, HTTP, DBs, message buses).
-- Identify where tool inputs/outputs are persisted (logs, caches, vector DBs).
-- Map the **blast radius**: if a prompt injection succeeds, what is reachable?
+Threat modeling identifies abuse paths and required mitigations. It may use STRIDE, abuse stories, attack trees, or reviewer-led scenario analysis.
 
-### Questions
-- What credentials exist?
-- Where are they stored?
-- What systems are reachable?
-- What happens if prompt injection succeeds?
+**Reviewer analyzes:**
 
-### Deliverable
-Architecture diagram and blast-radius analysis.
-
-
-## Phase 3: Threat Modeling
-
-- Apply STRIDE *plus* MCP-specific categories: **Tool Poisoning**, **Indirect Prompt Injection**, **Confused Deputy**, **Cross-Server Interference**, **Rug Pull**.
-- Build at least one *abuse story* per high-impact tool ("Attacker plants instructions in a Jira ticket so that `read_ticket` causes `send_email` to leak data").
-- Identify any tool that combines **read-from-untrusted** + **write-to-sensitive** in a single agent loop — this is the highest-risk pattern.
+- Assets and sensitive data.
+- Actors and identities.
+- Trust boundaries.
+- Credential flows.
+- Prompt-injection paths.
+- Tool poisoning paths.
+- Confused-deputy paths.
+- Cross-server and cross-tool abuse.
+- Untrusted-read plus sensitive-write chains.
+- Deployment-specific risks.
+- Business-logic and authorization abuse.
 
 ### Build Abuse Stories
 
 Example:
+
 ```text
-Attacker places malicious instructions inside a Jira ticket.
-The model reads the ticket through read_ticket.
-The model calls send_email and leaks internal data.
+Actor:
+Goal:
+Entry Point:
+Trust Boundary Crossed:
+Affected Systems:
+Attack Path:
+Worst-Case Outcome:
+Required Mitigations:
+Residual Risk:
+```
+
+Example abuse story:
+
+```text
+Actor: Malicious user or poisoned external document
+Goal: Exfiltrate sensitive Dovetail research
+Entry Point: Returned markdown content
+Trust Boundary Crossed: Dovetail content -> LLM context
+Attack Path: Inject instructions into returned content and cause follow-up retrieval
+Worst-Case Outcome: Broad project data disclosure
+Required Mitigations: Scope-limited token, output treated as untrusted, HITL approval, pagination limits
+Residual Risk: Medium if token remains broad
 ```
 
 ### Deliverable
-Threat model document with abuse cases.
+
+Threat model with abuse cases, required mitigations, and controls that must be validated.
 
 
-## Phase 4: Configuration Review
+## Phase 3: Security Control Validation
 
-- Walk the security review checklist/control catalog against deployed config, manifests, Helm charts, Dockerfiles, IaC.
-- Verify hardening (non-root user, read-only root FS, dropped capabilities, no host mounts).
-- Verify TLS, cipher suites, certificate validation, auth config.
+Security control validation verifies whether the mitigations identified during threat modeling are implemented correctly.
 
-### Validate
-- non-root execution;
-- read-only filesystem;
-- seccomp/AppArmor/SELinux;
-- no host mounts;
-- least-exposed interfaces;
-- secure secret handling.
+This phase includes what many teams call configuration review, permission review, implementation review, deployment review, and operational-readiness review.
+
+**Reviewer validates:**
+
+- Authorization controls.
+- Credential scope and storage.
+- Least-privilege permissions.
+- Input schema validation.
+- Tool metadata integrity.
+- Dangerous action confirmation.
+- Prompt injection defenses.
+- Runtime isolation.
+- Transport security.
+- Session and token binding.
+- Logging and auditability.
+- Rate limits, pagination, and output limits.
+- Dependency and supply-chain controls.
+- Container/Kubernetes/cloud hardening.
+- Secret handling.
+- Incident response readiness.
+- Security documentation.
+
+### Evidence to Collect
+
+- Code references.
+- Configuration files.
+- Dockerfiles, Helm charts, and Kubernetes manifests.
+- OAuth scopes, IAM policies, RBAC/ABAC rules, or API-token permissions.
+- Tool schemas and runtime `tools/list` output.
+- Secret-storage design.
+- Logging examples.
+- CI/security test results.
+- Dependency scans and SBOM, where available.
+- Owner/team and incident-response information.
+- Evidence collector report, if used.
+
+### Deliverable
+
+Completed checklist/control validation notes, evidence references, and open manual-review items.
 
 
-## Phase 5: Permission Review
+## Phase 4: Dynamic Testing
 
-- Enumerate every identity the server uses (IAM roles, OAuth scopes, DB grants, K8s RBAC, GitHub app permissions, etc.).
-- Confirm **least privilege** against each tool's actual needs.
-- Flag any wildcard, `*:*`, `Owner`, `admin`, `repo`-wide, or unscoped tokens.
+Dynamic testing validates runtime behavior that static review cannot prove.
 
-### Flag
-- wildcard permissions;
-- shared admin accounts;
-- long-lived credentials;
-- unscoped service accounts.
+**Test areas include:**
+
+### Runtime MCP Validation
+
+- `initialize`
+- `tools/list`
+- `resources/list`
+- `prompts/list`
+- tool schemas
+- transport behavior
+- runtime tool metadata
+- unexpected or dynamic capabilities
+
+### Authentication and Authorization
+
+- missing token
+- expired token
+- replayed token
+- wrong user
+- low-privilege user
+- cross-tenant or cross-project access
+- IDOR-style object ID manipulation
+
+### Input and Injection Testing
+
+- malformed IDs
+- oversized values
+- unknown fields
+- path traversal strings
+- command injection payloads, if relevant
+- SSRF probes, if URL tools exist
+- prompt-injection content in returned data
+
+### Tool-Chaining Tests
+
+- untrusted-read -> sensitive-write
+- cross-server leakage
+- prompt-injected follow-up tool calls
+- scope expansion without user approval
+
+### Logging and Monitoring
+
+- normal tool invocation logging
+- denied action logging
+- sensitive-data redaction
+- security-event visibility
+- incident investigation readiness
+
+### Deliverable
+
+Dynamic test evidence, screenshots/logs, runtime inventory, and updated residual-risk assessment.
 
 
-## Phase 6: Dynamic Testing
+## Phase 5: Risk Assessment
 
-Perform live testing against a non-prod instance:
-- **Auth tests:** missing/expired/forged tokens, replay, downgrade.
-- **Authz tests:** cross-tenant access, IDOR, privilege escalation.
-- **Injection tests:** prompt injection in tool outputs and resources; tool poisoning via crafted descriptions if reviewer can modify server.
-- **Tool abuse:** chain tools to reach an unsafe outcome; test the "untrusted-read → sensitive-write" pattern.
-- **Network tests:** SSRF from any tool that accepts a URL; DNS rebinding for HTTP-bound servers; egress to unexpected destinations.
-- **Resource exhaustion:** payload size, recursive structures, slow-loris, unbounded streaming.
-- **Logging tests:** verify expected events appear; verify no secrets are logged.
-
-
-## Phase 7: Risk Scoring
-
-- Score each finding per Section 9.
-- Aggregate to an overall **Residual Risk Rating**.
+Risk assessment determines the residual risk after controls and testing.
 
 ### Questions
-- Can any user trigger this?
-- Is authentication required?
-- Can prompt injection drive exploitation?
-- Does this impact sensitive systems?
-- Can the issue chain with other tools?
+
+- What is the worst-case blast radius?
+- Are credentials least-privileged?
+- Can prompt injection cause meaningful harm?
+- Can one user access another user/tenant/project?
+- Can the server perform destructive or externally visible actions?
+- Can the server access sensitive data at scale?
+- Are required controls implemented and tested?
+- What issues remain unresolved?
+- Are exceptions time-bound and owned?
+
+### Deliverable
+
+Risk rating, accepted risks, required fixes, compensating controls, and review recommendation.
 
 
-## Phase 8: Final Recommendation
+## Phase 6: Final Approval Decision
 
 Possible decisions:
 
 | Decision | Meaning |
 |---|---|
-| Approved | No blocking issues |
-| Approved with Restrictions | Allowed with constraints |
-| Pilot Only | Limited deployment |
-| Under Review | Missing information |
-| Rejected | Critical risk exists |
+| Approved | No blocking issues; residual risk accepted |
+| Conditionally Approved | Approved only after mandatory controls or restrictions are enforced |
+| Pilot Only | Limited deployment with restricted users/data and monitoring |
+| Under Review | Missing evidence or open manual validation |
+| Rejected | Critical or unmanaged risk exists |
 
 ### Deliverables
-- final report;
-- findings;
-- risk rating;
-- compensating controls;
-- review owner;
-- re-review triggers.
+
+- final decision
+- mandatory controls
+- accepted-risk record
+- restrictions or deployment conditions
+- follow-up owners
+- re-review triggers
 
 ---
 
+
 # 5. Threat Modeling Methodology
+
+This section expands Phase 2 of the review workflow. Threat modeling identifies likely abuse paths and determines which controls must be validated later.
 
 ## 5.1 Core Questions
 
@@ -531,8 +645,8 @@ Use only after the full checklist is done; for first-pass triage of obvious bloc
 ```text
 1. Architecture Review
 2. Threat Modeling
-3. First-Pass Evidence Collection
+3. Security Control Validation
 4. Dynamic Testing
-5. Checklist Validation
-6. Final Security Decision
+5. Risk Assessment
+6. Final Approval Decision
 ```

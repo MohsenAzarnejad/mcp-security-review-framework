@@ -22,13 +22,13 @@ This checklist is designed to be used together with the:
 Location in repository:
 
 ```text
-script/mcp_first_pass_evidence_collector_v1_0_release.py
+script/mcp_first_pass_evidence_collector_v1_0.py
 ```
 
 Supporting documentation:
 
 ```text
-script/MCP_Security_Smoke_Test_README.md
+script/README.md
 ```
 
 Purpose:
@@ -49,12 +49,12 @@ The tool is an evidence-collection and review-support utility. It does **not** r
 Recommended usage flow:
 
 ```text
-1. Run First-Pass Evidence Collector
-2. Review generated HTML report
-3. Perform threat modeling
+1. Complete architecture review
+2. Perform threat modeling
+3. Use the evidence collector during security control validation
 4. Execute dynamic/runtime testing
-5. Complete manual checklist review
-6. Record final security decision
+5. Complete checklist validation
+6. Record final risk and approval decision
 ```
 
 ---
@@ -72,6 +72,8 @@ Recommended usage flow:
 ---
 
 # 1. How to Use This Checklist
+
+This checklist is used during the **Security Control Validation** phase of the MCP review workflow. Threat modeling identifies what can go wrong; this checklist verifies whether the required mitigations are actually implemented and evidenced.
 
 Use this document when reviewing any MCP server, including:
 
