@@ -639,14 +639,3 @@ Use only after the full checklist is done; for first-pass triage of obvious bloc
 | `4-mcp-server-security-review-checklist.md` | Detailed control-by-control MCP review checklist |
 | `script/mcp_first_pass_evidence_collector_v1_0_release.py` | First-pass automated evidence collection tool |
 | `script/MCP_Security_Smoke_Test_README.md` | Tool documentation and usage guidance |
-
-### Recommended Review Order
-
-```text
-1. Architecture Review
-2. Threat Modeling
-3. Security Control Validation
-4. Dynamic Testing
-5. Risk Assessment
-6. Final Approval Decision
-```
